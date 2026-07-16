@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Search, ShoppingBag } from "lucide-react";
+import { Search, ShoppingBag, Menu, X } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useCurrency } from "@/context/CurrencyContext";
 
@@ -22,6 +22,7 @@ export default function Header() {
 } = useCurrency();
 
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
 
@@ -34,6 +35,19 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
 
   }, []);
+
+  // Sayfa değişince mobil menüyü kapat
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
+  // Menü açıkken arka planın kaymasını engelle
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
 
   const navItems = [
     {
@@ -51,7 +65,7 @@ export default function Header() {
   ];
 
   return (
-
+    <>
     <header
       className={`
         fixed
@@ -123,7 +137,7 @@ export default function Header() {
         </Link>
 
         {/* ==========================
-                NAVIGATION
+                NAVIGATION (Masaüstü)
         ========================== */}
 
         <nav className="hidden lg:flex items-center gap-10">
@@ -172,7 +186,7 @@ export default function Header() {
                 RIGHT
         ========================== */}
 
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-4 md:gap-8">
                     {/* Currency */}
 
         <div className="hidden xl:flex items-center gap-2">
@@ -335,11 +349,202 @@ export default function Header() {
 
           </button>
 
+          {/* Hamburger (Mobil / Tablet) */}
+
+          <button
+            onClick={() => setMobileMenuOpen(true)}
+            aria-label="Menüyü Aç"
+            className="
+              flex
+              lg:hidden
+
+              w-10
+              h-10
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              border
+
+              border-black/10
+
+              hover:bg-black
+              hover:text-white
+
+              transition-all
+              duration-300
+            "
+          >
+            <Menu size={20} />
+          </button>
+
         </div>
 
       </div>
 
     </header>
+
+    {/* ==========================
+            MOBİL MENÜ OVERLAY
+    ========================== */}
+
+    <div
+      onClick={() => setMobileMenuOpen(false)}
+      className={`
+        fixed inset-0 z-[85]
+        bg-black/40 backdrop-blur-md
+        transition-all duration-300
+        lg:hidden
+
+        ${
+          mobileMenuOpen
+            ? "opacity-100 visible"
+            : "opacity-0 invisible"
+        }
+      `}
+    />
+
+    <aside
+      className={`
+        fixed right-0 top-0
+        z-[95]
+        h-screen
+        w-full
+        max-w-[380px]
+
+        bg-white/95
+        backdrop-blur-xl
+
+        border-l
+        border-metagami-border
+
+        flex
+        flex-col
+
+        transition-transform
+        duration-500
+        ease-[cubic-bezier(.22,1,.36,1)]
+
+        lg:hidden
+
+        ${
+          mobileMenuOpen
+            ? "translate-x-0"
+            : "translate-x-full"
+        }
+      `}
+    >
+
+      {/* Başlık */}
+
+      <div className="px-8 pt-8 pb-7 border-b border-metagami-border flex items-start justify-between">
+
+        <div>
+          <p className="text-[10px] tracking-[0.35em] uppercase text-metagami-muted font-display">
+            Metagami Studio
+          </p>
+          <h2 className="mt-2 font-display text-2xl font-black tracking-tight uppercase">
+            Menu
+          </h2>
+        </div>
+
+        <button
+          onClick={() => setMobileMenuOpen(false)}
+          aria-label="Menüyü Kapat"
+          className="
+            w-10 h-10
+            flex items-center justify-center
+            border border-metagami-border
+            hover:bg-black hover:text-white
+            transition
+          "
+        >
+          <X size={18} />
+        </button>
+
+      </div>
+
+      {/* Nav Linkleri */}
+
+      <nav className="flex flex-col px-8 py-10 gap-8">
+
+        {navItems.map((item) => {
+
+          const active = pathname === item.href;
+
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`
+                text-2xl
+                font-display
+                font-black
+                uppercase
+                tracking-tight
+                transition-colors
+
+                ${
+                  active
+                    ? "text-black"
+                    : "text-metagami-muted hover:text-black"
+                }
+              `}
+            >
+              {item.label}
+            </Link>
+          );
+
+        })}
+
+      </nav>
+
+      {/* Para Birimi (mobilde de erişilebilir olsun) */}
+
+      <div className="mt-auto px-8 pb-10 pt-6 border-t border-metagami-border">
+
+        <p className="text-[10px] tracking-[0.35em] uppercase text-metagami-muted mb-4">
+          Currency
+        </p>
+
+        <div className="flex items-center gap-6">
+
+          {(["TRY", "EUR", "USD"] as const).map((item) => {
+
+            const active = currency === item;
+
+            return (
+              <button
+                key={item}
+                onClick={() => setCurrency(item)}
+                className={`
+                  text-xs
+                  tracking-[0.25em]
+                  uppercase
+                  pb-1
+                  border-b
+
+                  ${
+                    active
+                      ? "text-black border-black"
+                      : "text-metagami-muted border-transparent"
+                  }
+                `}
+              >
+                {item}
+              </button>
+            );
+
+          })}
+
+        </div>
+
+      </div>
+
+    </aside>
+    </>
 
   );
 
