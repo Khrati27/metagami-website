@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --color-metagami-bg: #d5d5d5;
+  --color-metagami-text: #1a1a1a;
+  --color-metagami-muted: #737373;
+  --color-metagami-border: #a3a3a3;
+
+  /* Google Fonts değişkenlerini Tailwind v4'e bağlıyoruz */
+  --font-display: var(--font-montserrat);
+  --font-sans: var(--font-inter);
+}
+
+@layer base {
+  body {
+    @apply bg-metagami-bg text-metagami-text antialiased font-sans;
+  }
+
+  ::selection {
+    @apply bg-metagami-text text-metagami-bg;
+  }
+}
+
+@layer utilities {
+  /* Katalog arkaplanındaki o hafif low-poly / blueprint teknik çizgi dokusu */
+  .bg-technical-grid {
+    background-image: 
+      linear-gradient(to right, rgba(26, 26, 26, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(26, 26, 26, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+  @keyframes imageFade {
+  from {
+    opacity: 0;
+    transform: scale(.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.gallery-image {
+  animation: imageFade .35s ease;
+}
+/* Custom scrollbar'ı gizleme kuralı */
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+}
