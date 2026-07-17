@@ -1,71 +1,202 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Search, ShoppingBag, Menu, X } from "lucide-react";
+
 import { useCart } from "@/context/CartContext";
 import { useCurrency } from "@/context/CurrencyContext";
 
+
 export default function Header() {
 
+
   const pathname = usePathname();
+  const router = useRouter();
+
+
 
   const {
     cartCount,
     toggleCart,
   } = useCart();
-  
+
+
+
   const {
-  currency,
-  setCurrency,
-} = useCurrency();
+    currency,
+    setCurrency,
+  } = useCurrency();
+
+
+
 
   const [scrolled, setScrolled] = useState(false);
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+
+
+  // SEARCH STATE
+
+  const [searchOpen, setSearchOpen] = useState(false);
+
+  const [searchValue, setSearchValue] = useState("");
+
+
+
+
+
 
   useEffect(() => {
 
+
     const onScroll = () => {
+
       setScrolled(window.scrollY > 30);
+
     };
 
-    window.addEventListener("scroll", onScroll);
 
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener(
+      "scroll",
+      onScroll
+    );
+
+
+    return () =>
+      window.removeEventListener(
+        "scroll",
+        onScroll
+      );
+
 
   }, []);
 
+
+
+
+
+
+
   // Sayfa değişince mobil menüyü kapat
+
   useEffect(() => {
+
     setMobileMenuOpen(false);
+
   }, [pathname]);
 
-  // Menü açıkken arka planın kaymasını engelle
+
+
+
+
+
+
+
+  // Menü açıkken scroll engelleme
+
   useEffect(() => {
-    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+
+
+    document.body.style.overflow =
+      mobileMenuOpen
+        ? "hidden"
+        : "";
+
+
+
     return () => {
+
       document.body.style.overflow = "";
+
     };
+
+
   }, [mobileMenuOpen]);
 
+
+
+
+
+
+
+
+
+  // SEARCH SUBMIT
+
+
+  function handleSearch(
+    e: React.FormEvent<HTMLFormElement>
+  ) {
+
+    e.preventDefault();
+
+
+
+    const value =
+      searchValue.trim();
+
+
+
+    if (!value) return;
+
+
+
+    router.push(
+      `/koleksiyon?search=${encodeURIComponent(value)}`
+    );
+
+
+
+    setSearchValue("");
+
+    setSearchOpen(false);
+
+  }
+
+
+
+
+
+
+
+
+
   const navItems = [
+
     {
       href: "/",
       label: "HOME",
     },
+
+
     {
       href: "/koleksiyon",
       label: "COLLECTION",
     },
+
+
     {
       href: "/iletisim",
       label: "CONTACT",
     },
+
   ];
 
+
+
+
+
+
+
+
+
   return (
+
     <>
+
     <header
       className={`
         fixed
@@ -87,16 +218,44 @@ export default function Header() {
       `}
     >
 
-      <div className="max-w-[1440px] mx-auto h-full px-6 md:px-12 flex items-center justify-between">
 
-        {/* ==========================
-                LOGO
-        ========================== */}
+
+      <div
+        className="
+          max-w-[1440px]
+          mx-auto
+          h-full
+          px-6
+          md:px-12
+          flex
+          items-center
+          justify-between
+          relative
+        "
+      >
+
+
+
+
+
+
+        {/* LOGO */}
+
 
         <Link
           href="/"
-          className="group flex flex-col items-center justify-center transition-all duration-300 hover:scale-[1.03]"
+          className="
+            group
+            flex
+            flex-col
+            items-center
+            justify-center
+            transition-all
+            duration-300
+            hover:scale-[1.03]
+          "
         >
+
 
           <div
             className={`
@@ -118,7 +277,18 @@ export default function Header() {
 
           </div>
 
-          <div className="flex items-center w-[82%] my-2 opacity-80">
+
+
+
+          <div
+            className="
+              flex
+              items-center
+              w-[82%]
+              my-2
+              opacity-80
+            "
+          >
 
             <div className="flex-1 h-px bg-current" />
 
@@ -128,131 +298,206 @@ export default function Header() {
 
           </div>
 
+
+
+
           <div className="text-[9px] tracking-[0.6em]">
 
             STUDIO
 
           </div>
 
+
         </Link>
 
-        {/* ==========================
-                NAVIGATION (Masaüstü)
-        ========================== */}
+
+
+
+
+
+
+
+
+        {/* DESKTOP NAVIGATION */}
+
 
         <nav className="hidden lg:flex items-center gap-10">
 
-          {navItems.map((item) => {
 
-            const active =
-              pathname === item.href;
+          {
+            navItems.map((item)=>{
 
-            return (
 
-             <Link
-  key={item.href}
-  href={item.href}
-  className="group relative text-sm uppercase tracking-[0.25em] font-display transition-colors hover:text-black"
->
+              const active =
+                pathname === item.href;
 
-  {item.label}
 
-  <span
-    className={`
-      absolute
-      left-0
-      -bottom-2
-      h-px
-      bg-black
-      transition-all
-      duration-300
-      ${
-        active
-          ? "w-full"
-          : "w-0 group-hover:w-full"
-      }
-    `}
-  />
 
-</Link>
+              return (
 
-            );
+                <Link
 
-          })}
+                  key={item.href}
+
+                  href={item.href}
+
+                  className="
+                    group
+                    relative
+                    text-sm
+                    uppercase
+                    tracking-[0.25em]
+                    font-display
+                    transition-colors
+                    hover:text-black
+                  "
+
+                >
+
+
+                  {item.label}
+
+
+
+                  <span
+
+                    className={`
+                      absolute
+                      left-0
+                      -bottom-2
+                      h-px
+                      bg-black
+                      transition-all
+                      duration-300
+
+                      ${
+                        active
+                          ? "w-full"
+                          : "w-0 group-hover:w-full"
+                      }
+                    `}
+
+                  />
+
+
+                </Link>
+
+              );
+
+
+            })
+          }
+
 
         </nav>
 
-        {/* ==========================
-                RIGHT
-        ========================== */}
 
-        <div className="flex items-center gap-4 md:gap-8">
-                    {/* Currency */}
 
-        <div className="hidden xl:flex items-center gap-2">
 
-  {(["TRY", "EUR", "USD"] as const).map((item) => {
 
-    const active = currency === item;
 
-    return (
-<button
-  key={item}
-  onClick={() => setCurrency(item)}
-  className="group relative px-2 py-1"
->
 
-  <span
-    className={`
-      text-[11px]
-      tracking-[0.30em]
-      uppercase
-      transition-colors
+        {/* RIGHT AREA */}
 
-      ${
-        currency === item
-          ? "text-black"
-          : "text-metagami-muted group-hover:text-black"
-      }
-    `}
-  >
-    {item}
-  </span>
 
-  <span
-    className={`
-      absolute
+        <div
+          className="
+            flex
+            items-center
+            gap-4
+            md:gap-8
+          "
+        >
 
-      left-0
 
-      -bottom-1
 
-      h-px
+          {/* Currency */}
 
-      bg-black
 
-      transition-all
+          <div className="hidden xl:flex items-center gap-2">
 
-      duration-300
 
-      ${
-        currency === item
-          ? "w-full"
-          : "w-0"
-      }
-    `}
-  />
+            {
+              (["TRY","EUR","USD"] as const)
+              .map((item)=>{
 
-</button>
-    );
 
-  })}
+                return (
 
-</div>
+                  <button
 
-          {/* Search */}
+                    key={item}
+
+                    onClick={() =>
+                      setCurrency(item)
+                    }
+
+                    className="
+                      group
+                      relative
+                      px-2
+                      py-1
+                    "
+
+                  >
+
+
+                    <span
+                      className={`
+                        text-[11px]
+                        tracking-[0.30em]
+                        uppercase
+                        transition-colors
+
+                        ${
+                          currency === item
+                          ? "text-black"
+                          : "text-metagami-muted group-hover:text-black"
+                        }
+                      `}
+                    >
+
+                      {item}
+
+                    </span>
+
+
+
+                    <span
+                      className={`
+                        absolute
+                        left-0
+                        -bottom-1
+                        h-px
+                        bg-black
+                        transition-all
+                        duration-300
+
+                        ${
+                          currency === item
+                          ? "w-full"
+                          : "w-0"
+                        }
+                      `}
+                    />
+
+
+                  </button>
+
+                );
+
+
+              })
+            }
+
+
+          </div>
+                    {/* SEARCH */}
 
           <button
+            onClick={() =>
+              setSearchOpen(!searchOpen)
+            }
             className="
               hidden
               md:flex
@@ -266,7 +511,6 @@ export default function Header() {
               rounded-full
 
               border
-
               border-black/10
 
               hover:bg-black
@@ -276,13 +520,25 @@ export default function Header() {
               duration-300
             "
           >
+
             <Search size={18} />
+
           </button>
 
-          {/* Cart */}
+
+
+
+
+
+
+
+          {/* CART */}
+
 
           <button
+
             onClick={toggleCart}
+
             className="
               relative
 
@@ -296,7 +552,6 @@ export default function Header() {
               rounded-full
 
               border
-
               border-black/10
 
               hover:bg-black
@@ -305,55 +560,79 @@ export default function Header() {
               transition-all
               duration-300
             "
+
           >
+
 
             <ShoppingBag size={19} />
 
-            {cartCount > 0 && (
 
-              <span
-                className="
-                  absolute
 
-                  -top-2
-                  -right-2
+            {
+              cartCount > 0 && (
 
-                  min-w-[20px]
-                  h-5
+                <span
 
-                  px-1
+                  className="
+                    absolute
+                    -top-2
+                    -right-2
 
-                  rounded-full
+                    min-w-[20px]
+                    h-5
 
-                  bg-black
+                    px-1
 
-                  text-white
+                    rounded-full
 
-                  text-[10px]
+                    bg-black
 
-                  font-bold
+                    text-white
 
-                  flex
+                    text-[10px]
 
-                  items-center
+                    font-bold
 
-                  justify-center
+                    flex
+                    items-center
+                    justify-center
 
-                  animate-pulse
-                "
-              >
-                {cartCount}
-              </span>
+                    animate-pulse
+                  "
 
-            )}
+                >
+
+                  {cartCount}
+
+                </span>
+
+              )
+            }
+
+
 
           </button>
 
-          {/* Hamburger (Mobil / Tablet) */}
+
+
+
+
+
+
+
+
+          {/* MOBILE MENU BUTTON */}
+
+
 
           <button
-            onClick={() => setMobileMenuOpen(true)}
+
+            onClick={() =>
+              setMobileMenuOpen(true)
+            }
+
             aria-label="Menüyü Aç"
+
             className="
               flex
               lg:hidden
@@ -367,7 +646,6 @@ export default function Header() {
               rounded-full
 
               border
-
               border-black/10
 
               hover:bg-black
@@ -376,174 +654,851 @@ export default function Header() {
               transition-all
               duration-300
             "
+
           >
+
             <Menu size={20} />
+
           </button>
 
+
+
+
         </div>
 
+
+
+
       </div>
+
+
+
+
+
+
+
+
+      {/* SEARCH PANEL */}
+
+
+
+      <div
+
+        className={`
+
+          absolute
+
+          top-full
+
+          right-6
+
+          md:right-12
+
+
+          w-[280px]
+
+          md:w-[360px]
+
+
+          transition-all
+
+          duration-500
+
+          ease-[cubic-bezier(.22,1,.36,1)]
+
+
+          ${
+            searchOpen
+
+            ? "opacity-100 translate-y-3 visible"
+
+            : "opacity-0 -translate-y-3 invisible"
+
+          }
+
+        `}
+
+      >
+
+
+
+        <form
+
+          onSubmit={handleSearch}
+
+          className="
+
+            bg-white/95
+
+            backdrop-blur-xl
+
+
+            border
+
+            border-black/10
+
+
+            shadow-xl
+
+
+            px-5
+
+            py-5
+
+          "
+
+        >
+
+
+
+          <div
+
+            className="
+
+              flex
+
+              items-center
+
+              gap-3
+
+            "
+
+          >
+
+
+
+            <Search
+
+              size={15}
+
+              className="
+
+                text-metagami-muted
+
+                shrink-0
+
+              "
+
+            />
+
+
+
+
+            <input
+
+
+              autoFocus={searchOpen}
+
+
+              value={searchValue}
+
+
+              onChange={(e)=>
+
+                setSearchValue(
+
+                  e.target.value
+
+                )
+
+              }
+
+
+              placeholder="SEARCH PRODUCTS..."
+
+
+              className="
+
+                w-full
+
+
+                bg-transparent
+
+
+                outline-none
+
+
+                text-[11px]
+
+
+                uppercase
+
+
+                tracking-[0.3em]
+
+
+                placeholder:text-metagami-muted
+
+
+                text-black
+
+              "
+
+
+            />
+
+
+
+          </div>
+
+
+
+
+
+          <div
+
+            className="
+
+              mt-4
+
+              h-px
+
+              bg-black/10
+
+            "
+
+          />
+
+
+
+
+
+          <p
+
+            className="
+
+              mt-3
+
+
+              text-[9px]
+
+
+              uppercase
+
+
+              tracking-[0.3em]
+
+
+              text-metagami-muted
+
+            "
+
+          >
+
+            Search collection products
+
+          </p>
+
+
+
+        </form>
+
+
+
+      </div>
+
+
+
+
+
+
+
 
     </header>
+        {/* MOBILE MENU OVERLAY */}
 
-    {/* ==========================
-            MOBİL MENÜ OVERLAY
-    ========================== */}
+
 
     <div
-      onClick={() => setMobileMenuOpen(false)}
+
+      onClick={() =>
+        setMobileMenuOpen(false)
+      }
+
       className={`
-        fixed inset-0 z-[85]
-        bg-black/40 backdrop-blur-md
-        transition-all duration-300
+
+        fixed
+        inset-0
+        z-[85]
+
+        bg-black/40
+
+        backdrop-blur-md
+
+        transition-all
+        duration-300
+
         lg:hidden
+
 
         ${
           mobileMenuOpen
-            ? "opacity-100 visible"
-            : "opacity-0 invisible"
+          ? "opacity-100 visible"
+          : "opacity-0 invisible"
         }
+
       `}
+
     />
 
+
+
+
+
+
+
+
+
+
+
+
     <aside
+
       className={`
-        fixed right-0 top-0
+
+        fixed
+
+        right-0
+
+        top-0
+
         z-[95]
+
         h-screen
+
         w-full
+
         max-w-[380px]
 
+
         bg-white/95
+
+
         backdrop-blur-xl
 
+
+
         border-l
+
+
         border-metagami-border
 
+
+
         flex
+
+
         flex-col
 
+
+
+
         transition-transform
+
+
         duration-500
+
+
         ease-[cubic-bezier(.22,1,.36,1)]
+
+
 
         lg:hidden
 
+
+
         ${
           mobileMenuOpen
-            ? "translate-x-0"
-            : "translate-x-full"
+          ? "translate-x-0"
+          : "translate-x-full"
         }
+
+
+
       `}
+
     >
 
-      {/* Başlık */}
 
-      <div className="px-8 pt-8 pb-7 border-b border-metagami-border flex items-start justify-between">
+
+
+
+
+
+
+
+
+
+      {/* MOBILE MENU HEADER */}
+
+
+
+      <div
+
+        className="
+
+          px-8
+
+          pt-8
+
+          pb-7
+
+
+          border-b
+
+
+          border-metagami-border
+
+
+          flex
+
+
+          items-start
+
+
+          justify-between
+
+        "
+
+      >
+
+
 
         <div>
-          <p className="text-[10px] tracking-[0.35em] uppercase text-metagami-muted font-display">
+
+
+
+          <p
+
+            className="
+
+              text-[10px]
+
+
+              tracking-[0.35em]
+
+
+              uppercase
+
+
+              text-metagami-muted
+
+
+              font-display
+
+            "
+
+          >
+
             Metagami Studio
+
+
           </p>
-          <h2 className="mt-2 font-display text-2xl font-black tracking-tight uppercase">
+
+
+
+
+
+          <h2
+
+            className="
+
+              mt-2
+
+
+              font-display
+
+
+              text-2xl
+
+
+              font-black
+
+
+              tracking-tight
+
+
+              uppercase
+
+            "
+
+          >
+
             Menu
+
+
           </h2>
+
+
+
         </div>
 
+
+
+
+
+
+
         <button
-          onClick={() => setMobileMenuOpen(false)}
+
+          onClick={() =>
+            setMobileMenuOpen(false)
+          }
+
+
           aria-label="Menüyü Kapat"
+
+
+
           className="
-            w-10 h-10
-            flex items-center justify-center
-            border border-metagami-border
-            hover:bg-black hover:text-white
+
+            w-10
+
+            h-10
+
+
+            flex
+
+
+            items-center
+
+
+            justify-center
+
+
+
+            border
+
+
+            border-metagami-border
+
+
+
+            hover:bg-black
+
+
+            hover:text-white
+
+
+
             transition
+
           "
+
         >
-          <X size={18} />
+
+
+          <X size={18}/>
+
+
         </button>
+
+
+
 
       </div>
 
-      {/* Nav Linkleri */}
 
-      <nav className="flex flex-col px-8 py-10 gap-8">
 
-        {navItems.map((item) => {
 
-          const active = pathname === item.href;
 
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`
-                text-2xl
-                font-display
-                font-black
-                uppercase
-                tracking-tight
-                transition-colors
 
-                ${
-                  active
-                    ? "text-black"
-                    : "text-metagami-muted hover:text-black"
-                }
-              `}
-            >
-              {item.label}
-            </Link>
-          );
 
-        })}
 
-      </nav>
 
-      {/* Para Birimi (mobilde de erişilebilir olsun) */}
 
-      <div className="mt-auto px-8 pb-10 pt-6 border-t border-metagami-border">
 
-        <p className="text-[10px] tracking-[0.35em] uppercase text-metagami-muted mb-4">
-          Currency
-        </p>
 
-        <div className="flex items-center gap-6">
+      {/* MOBILE NAV */}
 
-          {(["TRY", "EUR", "USD"] as const).map((item) => {
 
-            const active = currency === item;
+
+      <nav
+
+        className="
+
+          flex
+
+
+          flex-col
+
+
+          px-8
+
+
+          py-10
+
+
+          gap-8
+
+        "
+
+      >
+
+
+
+        {
+          navItems.map((item)=>{
+
+
+            const active =
+              pathname === item.href;
+
+
 
             return (
-              <button
-                key={item}
-                onClick={() => setCurrency(item)}
+
+
+              <Link
+
+
+                key={item.href}
+
+
+
+                href={item.href}
+
+
+
                 className={`
-                  text-xs
-                  tracking-[0.25em]
+
+
+                  text-2xl
+
+
+                  font-display
+
+
+                  font-black
+
+
                   uppercase
-                  pb-1
-                  border-b
+
+
+                  tracking-tight
+
+
+
+                  transition-colors
+
+
+
 
                   ${
                     active
-                      ? "text-black border-black"
-                      : "text-metagami-muted border-transparent"
+
+                    ? "text-black"
+
+                    : "text-metagami-muted hover:text-black"
+
                   }
+
+
+
                 `}
+
+
               >
-                {item}
-              </button>
+
+
+                {item.label}
+
+
+
+              </Link>
+
+
             );
 
-          })}
+
+
+          })
+        }
+
+
+
+      </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+      {/* MOBILE CURRENCY */}
+
+
+
+      <div
+
+        className="
+
+          mt-auto
+
+
+          px-8
+
+
+          pb-10
+
+
+          pt-6
+
+
+
+          border-t
+
+
+          border-metagami-border
+
+        "
+
+      >
+
+
+
+        <p
+
+          className="
+
+            text-[10px]
+
+
+            tracking-[0.35em]
+
+
+            uppercase
+
+
+            text-metagami-muted
+
+
+            mb-4
+
+          "
+
+        >
+
+          Currency
+
+
+        </p>
+
+
+
+
+
+
+        <div className="flex items-center gap-6">
+
+
+          {
+
+            (["TRY","EUR","USD"] as const)
+
+            .map((item)=>{
+
+
+              return (
+
+
+                <button
+
+
+                  key={item}
+
+
+
+                  onClick={() =>
+                    setCurrency(item)
+                  }
+
+
+
+                  className={`
+
+
+
+                    text-xs
+
+
+                    tracking-[0.25em]
+
+
+                    uppercase
+
+
+
+                    pb-1
+
+
+
+                    border-b
+
+
+
+
+
+                    ${
+                      currency === item
+
+
+                      ? "text-black border-black"
+
+
+                      : "text-metagami-muted border-transparent"
+
+                    }
+
+
+
+                  `}
+
+
+
+                >
+
+
+                  {item}
+
+
+
+                </button>
+
+
+
+              );
+
+
+
+            })
+
+          }
+
+
 
         </div>
 
+
+
+
+
       </div>
 
+
+
+
+
+
     </aside>
+
+
+
     </>
 
   );
