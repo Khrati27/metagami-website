@@ -258,7 +258,7 @@ export default function IletisimPage() {
 
 
                 <p>
-                  info@metagamistudio.com
+                  info@metagamistd.com
                 </p>
 
 
@@ -284,7 +284,7 @@ export default function IletisimPage() {
 
 
                 <p>
-                  Türkiye
+                  Türkiye/Gaziantep
                 </p>
 
 
