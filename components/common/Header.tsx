@@ -612,6 +612,43 @@ export default function Header() {
 
 
           </button>
+          {/* MOBILE SEARCH BUTTON */}
+
+<button
+
+  onClick={() =>
+    setSearchOpen(!searchOpen)
+  }
+
+  aria-label="Arama Aç"
+
+  className="
+    flex
+    lg:hidden
+
+    w-10
+    h-10
+
+    items-center
+    justify-center
+
+    rounded-full
+
+    border
+    border-black/10
+
+    hover:bg-black
+    hover:text-white
+
+    transition-all
+    duration-300
+  "
+
+>
+
+  <Search size={18} />
+
+</button>
 
 
 
