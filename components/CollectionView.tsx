@@ -81,7 +81,8 @@ export default function CollectionView({ products }: CollectionViewProps) {
               METAGAMI STUDIO
             </span>
             <h1 className="mt-4 md:mt-8 font-display text-4xl sm:text-6xl md:text-8xl font-black uppercase leading-tight md:leading-none">
-              KOLEKSİYON
+              
+COLLECTION
             </h1>
             <div className="w-16 md:w-20 h-[2px] bg-black mt-4 md:mt-8" />
             <p className="mt-4 md:mt-8 max-w-xl text-sm md:text-lg leading-relaxed md:leading-8 text-metagami-muted">
