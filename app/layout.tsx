@@ -4,6 +4,7 @@ import "./globals.css";
 
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
+import Newsletter from "@/components/Newsletter";
 
 import { CartProvider } from "@/context/CartContext";
 import { CurrencyProvider } from "@/context/CurrencyContext";
@@ -36,21 +37,27 @@ export default function RootLayout({
       lang="tr"
       className={`${inter.variable} ${montserrat.variable}`}
     >
-     <body className="bg-metagami-bg text-metagami-text bg-technical-grid font-sans antialiased flex flex-col min-h-screen">
+      <body className="bg-metagami-bg text-metagami-text bg-technical-grid font-sans antialiased flex flex-col min-h-screen">
 
- <CurrencyProvider>
-  <CartProvider>
-    <Header />
+        <CurrencyProvider>
+          <CartProvider>
 
-    <div className="flex-grow pt-20">
-      {children}
-    </div>
+            <Header />
 
-    <Footer />
-    <Cart />
-  </CartProvider>
-</CurrencyProvider>
-</body>
+            <main className="flex-grow pt-20">
+              {children}
+            </main>
+
+            <Newsletter />
+
+            <Footer />
+
+            <Cart />
+
+          </CartProvider>
+        </CurrencyProvider>
+
+      </body>
     </html>
   );
 }
