@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Newsletter() {
+  const { t } = useLanguage();
+
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -43,16 +46,15 @@ export default function Newsletter() {
       <div className="max-w-2xl mx-auto text-center">
 
         <p className="text-[10px] tracking-[0.45em] uppercase text-metagami-muted font-display">
-          Newsletter
+          {t("newsletter.label")}
         </p>
 
         <h2 className="mt-4 text-3xl md:text-5xl font-display font-black uppercase tracking-tight">
-          Stay Connected
+          {t("newsletter.title")}
         </h2>
 
         <p className="mt-5 text-sm text-metagami-muted leading-7 max-w-lg mx-auto">
-          Receive exclusive releases, limited editions and architectural
-          inspirations from Metagami Studio.
+          {t("newsletter.description")}
         </p>
 
         <form
@@ -61,15 +63,15 @@ export default function Newsletter() {
         >
 
           <input
-  type="hidden"
-  name="access_key"
-  value={process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY}
-/>
+            type="hidden"
+            name="access_key"
+            value={process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY}
+          />
 
           <input
             type="hidden"
             name="subject"
-            value="Newsletter Subscription"
+            value={t("newsletter.subject")}
           />
 
           <input
@@ -78,7 +80,7 @@ export default function Newsletter() {
             value="Metagami Studio"
           />
 
-          <div className="border-t border-b border-metagami-border py-6">
+          <div className="border-t border-metagami-border py-6">
 
             <div className="flex flex-col md:flex-row md:items-center gap-5">
 
@@ -86,7 +88,7 @@ export default function Newsletter() {
                 type="email"
                 name="email"
                 required
-                placeholder="Enter your email"
+                placeholder={t("newsletter.placeholder")}
                 className="
                   flex-1
                   bg-transparent
@@ -115,10 +117,11 @@ export default function Newsletter() {
                 "
               >
                 {loading ? (
-                  "Sending..."
+                  t("newsletter.sending")
                 ) : (
                   <>
-                    Subscribe
+                    {t("newsletter.subscribe")}
+
                     <span className="transition-transform duration-300 group-hover:translate-x-2">
                       →
                     </span>
@@ -132,13 +135,14 @@ export default function Newsletter() {
 
         </form>
 
+
         <div className="mt-5 h-6">
 
           {success && (
 
             <p className="text-green-600 text-sm tracking-[0.25em] uppercase">
 
-              ✓ Thank you for subscribing.
+              ✓ {t("newsletter.success")}
 
             </p>
 
@@ -146,9 +150,11 @@ export default function Newsletter() {
 
         </div>
 
+
         <p className="mt-4 text-[11px] tracking-[0.2em] uppercase text-metagami-muted">
-          Exclusive releases. No unnecessary emails.
+          {t("newsletter.footer")}
         </p>
+
 
       </div>
 

@@ -1,12 +1,22 @@
 "use client";
 
+
 import { useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
+
 
 
 export default function IletisimFormu() {
 
+
+  const { t } = useLanguage();
+
+
   const [loading, setLoading] = useState(false);
+
   const [result, setResult] = useState("");
+
+
 
 
 
@@ -14,15 +24,18 @@ export default function IletisimFormu() {
     e: React.FormEvent<HTMLFormElement>
   ) {
 
+
     e.preventDefault();
 
 
     setLoading(true);
+
     setResult("");
 
 
 
     const form = e.currentTarget;
+
     const formData = new FormData(form);
 
 
@@ -33,11 +46,12 @@ export default function IletisimFormu() {
     );
 
 
-    // Web3Forms redirect engelleme
+
     formData.append(
       "redirect",
       "false"
     );
+
 
 
 
@@ -47,8 +61,8 @@ export default function IletisimFormu() {
       const response = await fetch(
         "https://api.web3forms.com/submit",
         {
-          method: "POST",
-          body: formData,
+          method:"POST",
+          body:formData,
         }
       );
 
@@ -59,11 +73,11 @@ export default function IletisimFormu() {
 
 
 
-      if (data.success) {
+      if(data.success){
 
 
         setResult(
-          "✓ MESSAGE SENT SUCCESSFULLY."
+          t("form.success")
         );
 
 
@@ -71,11 +85,11 @@ export default function IletisimFormu() {
 
 
 
-      } else {
+      }else{
 
 
         setResult(
-          "MESSAGE COULD NOT BE SENT."
+          t("form.error")
         );
 
 
@@ -85,15 +99,15 @@ export default function IletisimFormu() {
 
 
 
-    } catch (error) {
+    }catch(error){
 
 
       setResult(
-        "CONNECTION ERROR. PLEASE TRY AGAIN."
+        t("form.connectionError")
       );
 
 
-    } finally {
+    }finally{
 
 
       setLoading(false);
@@ -109,14 +123,16 @@ export default function IletisimFormu() {
 
 
 
+
   return (
+
 
     <form
       onSubmit={handleSubmit}
-      className="
-        space-y-10
-      "
+      className="space-y-10"
     >
+
+
 
 
 
@@ -124,7 +140,9 @@ export default function IletisimFormu() {
 
       {/* NAME */}
 
+
       <div>
+
 
         <label className="
           block
@@ -134,15 +152,23 @@ export default function IletisimFormu() {
           text-metagami-muted
           mb-4
         ">
-          NAME
+
+          {t("form.name")}
+
         </label>
 
 
 
+
+
         <input
+
           type="text"
+
           name="name"
+
           required
+
           className="
             w-full
             bg-transparent
@@ -155,7 +181,9 @@ export default function IletisimFormu() {
             transition
             focus:border-black
           "
+
         />
+
 
       </div>
 
@@ -169,7 +197,9 @@ export default function IletisimFormu() {
 
       {/* EMAIL */}
 
+
       <div>
+
 
         <label className="
           block
@@ -179,16 +209,25 @@ export default function IletisimFormu() {
           text-metagami-muted
           mb-4
         ">
-          EMAIL
+
+
+          {t("form.email")}
+
+
         </label>
 
 
 
 
+
         <input
+
           type="email"
+
           name="email"
+
           required
+
           className="
             w-full
             bg-transparent
@@ -201,7 +240,9 @@ export default function IletisimFormu() {
             transition
             focus:border-black
           "
+
         />
+
 
       </div>
 
@@ -215,7 +256,9 @@ export default function IletisimFormu() {
 
       {/* MESSAGE */}
 
+
       <div>
+
 
         <label className="
           block
@@ -225,7 +268,11 @@ export default function IletisimFormu() {
           text-metagami-muted
           mb-4
         ">
-          MESSAGE
+
+
+          {t("form.message")}
+
+
         </label>
 
 
@@ -256,6 +303,8 @@ export default function IletisimFormu() {
 
         />
 
+
+
       </div>
 
 
@@ -267,6 +316,7 @@ export default function IletisimFormu() {
 
 
       {/* Honeypot */}
+
 
       <input
 
@@ -291,6 +341,7 @@ export default function IletisimFormu() {
 
 
       {/* BUTTON */}
+
 
       <button
 
@@ -317,11 +368,13 @@ export default function IletisimFormu() {
 
       >
 
+
         {
           loading
-          ? "SENDING..."
-          : "SEND MESSAGE"
+          ? t("form.sending")
+          : t("form.send")
         }
+
 
 
       </button>
@@ -334,7 +387,8 @@ export default function IletisimFormu() {
 
 
 
-      {/* RESULT MESSAGE */}
+      {/* RESULT */}
+
 
       {
         result && (
@@ -361,6 +415,8 @@ export default function IletisimFormu() {
 
     </form>
 
+
   );
+
 
 }

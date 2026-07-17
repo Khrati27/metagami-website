@@ -1,7 +1,15 @@
+"use client";
+
 import IletisimFormu from "@/components/IletisimFormu";
+import { useLanguage } from "@/context/LanguageContext";
 
 
 export default function IletisimPage() {
+
+
+  const { t } = useLanguage();
+
+
 
   return (
 
@@ -40,6 +48,7 @@ export default function IletisimPage() {
 
 
 
+
       {/* BACKGROUND TITLE */}
 
       <div className="
@@ -66,11 +75,14 @@ export default function IletisimPage() {
           leading-none
           whitespace-nowrap
         ">
-          CONTACT
+
+          {t("contact.title")}
+
         </h2>
 
 
       </div>
+
 
 
 
@@ -86,7 +98,11 @@ export default function IletisimPage() {
       ">
 
 
+
+
+
         {/* HERO SECTION */}
+
 
         <section className="
           py-12
@@ -105,8 +121,11 @@ export default function IletisimPage() {
               md:text-xs
               text-metagami-muted
             ">
+
               METAGAMI STUDIO
+
             </span>
+
 
 
 
@@ -124,8 +143,11 @@ export default function IletisimPage() {
               leading-tight
               md:leading-none
             ">
-              CONTACT
+
+              {t("contact.title")}
+
             </h1>
+
 
 
 
@@ -144,6 +166,7 @@ export default function IletisimPage() {
 
 
 
+
             <p className="
               mt-4
               md:mt-8
@@ -154,9 +177,9 @@ export default function IletisimPage() {
               md:leading-8
               text-metagami-muted
             ">
-              METAGAMI STUDIO ile iletişime geçin.
-              Özel tasarım talepleri, projeler ve iş birlikleri
-              için bizimle bağlantı kurabilirsiniz.
+
+              {t("contact.description")}
+
             </p>
 
 
@@ -174,7 +197,9 @@ export default function IletisimPage() {
 
 
 
+
         {/* CONTACT AREA */}
+
 
         <section className="
           grid
@@ -187,7 +212,11 @@ export default function IletisimPage() {
 
 
 
+
+
           {/* CONTACT INFO */}
+
+
 
           <div className="
             space-y-12
@@ -199,7 +228,9 @@ export default function IletisimPage() {
 
 
 
+
             <div>
+
 
               <h3 className="
                 text-[10px]
@@ -210,8 +241,11 @@ export default function IletisimPage() {
                 font-display
                 uppercase
               ">
-                BİZE ULAŞIN
+
+                {t("contact.reachTitle")}
+
               </h3>
+
 
 
 
@@ -221,9 +255,11 @@ export default function IletisimPage() {
                 leading-relaxed
                 max-w-sm
               ">
-                Her türlü soru, özel tasarım talepleri
-                ve iş birlikleri için bize ulaşabilirsiniz.
+
+                {t("contact.reachDescription")}
+
               </p>
+
 
 
             </div>
@@ -244,7 +280,9 @@ export default function IletisimPage() {
 
 
 
+
               <div>
+
 
                 <span className="
                   block
@@ -253,8 +291,11 @@ export default function IletisimPage() {
                   text-metagami-muted
                   mb-2
                 ">
-                  EMAIL
+
+                  {t("contact.email")}
+
                 </span>
+
 
 
                 <p>
@@ -270,7 +311,9 @@ export default function IletisimPage() {
 
 
 
+
               <div>
+
 
                 <span className="
                   block
@@ -279,13 +322,20 @@ export default function IletisimPage() {
                   text-metagami-muted
                   mb-2
                 ">
-                  LOCATION
+
+                  {t("contact.location")}
+
                 </span>
 
 
+
+
                 <p>
-                  Türkiye/Gaziantep
+
+                  {t("contact.country")}
+
                 </p>
+
 
 
               </div>
@@ -296,7 +346,9 @@ export default function IletisimPage() {
 
 
 
+
               <div>
+
 
                 <span className="
                   block
@@ -305,8 +357,12 @@ export default function IletisimPage() {
                   text-metagami-muted
                   mb-2
                 ">
-                  SOCIAL
+
+                  {t("contact.social")}
+
                 </span>
+
+
 
 
 
@@ -320,12 +376,17 @@ export default function IletisimPage() {
                     duration-300
                   "
                 >
+
                   Instagram
+
                 </a>
 
 
 
+
               </div>
+
+
 
 
 
@@ -346,6 +407,7 @@ export default function IletisimPage() {
 
           {/* FORM */}
 
+
           <div>
 
             <IletisimFormu />
@@ -354,11 +416,17 @@ export default function IletisimPage() {
 
 
 
+
+
         </section>
 
 
 
+
+
       </div>
+
+
 
 
     </main>

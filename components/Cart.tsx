@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Cart() {
   const {
@@ -15,6 +16,7 @@ export default function Cart() {
   } = useCart();
 
   const [isRedirecting, setIsRedirecting] = useState(false);
+  const { t } = useLanguage();
 
   /* -----------------------------
       Body Scroll Lock
@@ -154,11 +156,11 @@ backdrop-blur-xl
               </p>
 
               <h2 className="mt-2 font-display text-3xl font-black tracking-tight uppercase">
-                Cart
+                {t("cart.title")}
               </h2>
 
               <p className="mt-3 text-xs tracking-[0.25em] uppercase text-metagami-muted">
-                {cartCount} Sculptures Selected
+                {cartCount} {t("cart.sculpturesSelected")}
               </p>
 
             </div>
@@ -202,19 +204,18 @@ backdrop-blur-xl
               <div className="w-24 h-[1px] bg-metagami-border mb-10" />
 
               <h3 className="font-display text-2xl font-black uppercase tracking-tight">
-                Your Cart is Empty
+                {t("cart.empty")}
               </h3>
 
               <p className="mt-6 text-sm leading-7 text-metagami-muted max-w-xs">
-                Every sculpture begins with a choice.
-                Explore our collection and discover timeless forms.
+                {t("cart.emptyDescription")}
               </p>
 
               <button
                 onClick={closeCart}
                 className="mt-10 border border-black px-8 py-4 text-xs uppercase tracking-[0.35em] hover:bg-black hover:text-white transition"
               >
-                Continue Shopping
+                {t("cart.continueShopping")}
               </button>
 
             </div>
@@ -263,7 +264,7 @@ backdrop-blur-xl
 
                         <p className="mt-3 text-[11px] uppercase tracking-[0.35em] text-metagami-muted">
 
-                          Stainless Steel Sculpture
+                          {t("cart.stainlessSteelSculpture")}
 
                         </p>
 
@@ -329,7 +330,7 @@ backdrop-blur-xl
                           }
                           className="text-[11px] uppercase tracking-[0.3em] text-metagami-muted hover:text-black transition"
                         >
-                          Remove →
+                          {t("cart.remove")} →
                         </button>
 
                       </div>
@@ -363,7 +364,7 @@ backdrop-blur-xl
 
                 <span className="text-xs uppercase tracking-[0.35em] text-metagami-muted">
 
-                  Subtotal
+                  {t("cart.subtotal")}
 
                 </span>
 
@@ -386,13 +387,13 @@ backdrop-blur-xl
 
                   <span className="text-metagami-muted">
 
-                    Shipping
+                    {t("cart.shipping")}
 
                   </span>
 
                   <span>
 
-                    Calculated at Checkout
+                    {t("cart.calculatedCheckout")}
 
                   </span>
 
@@ -448,8 +449,8 @@ backdrop-blur-xl
               >
 
                 {isRedirecting
-                  ? "Redirecting..."
-                  : "Checkout →"}
+? t("cart.redirecting")
+: `${t("cart.checkout")} →`}
 
               </button>
 

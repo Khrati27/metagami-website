@@ -3,130 +3,63 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
+import { useLanguage } from "@/context/LanguageContext";
+
 
 const sections = [
   {
     id: "hakkimizda",
-    title: "Hakkımızda",
-    content: (
-      <>
-        <p>
-          METAGAMI STUDIO, modern tasarım anlayışıyla özgün ve kaliteli
-          ürünler geliştiren bağımsız bir markadır.
-        </p>
-
-        <p className="mt-4">
-          Her parça detaylara önem verilerek hazırlanır ve zamansız
-          tasarım anlayışıyla kullanıcılarla buluşturulur.
-        </p>
-      </>
-    ),
+    title: "info.about.title",
+    content: "info.about.content",
   },
-
 
   {
     id: "sss",
-    title: "Sıkça Sorulan Sorular",
-    content: (
-      <div className="space-y-5">
-
-        <div>
-          <h3 className="text-metagami-text mb-2 tracking-wide">
-            Siparişim ne zaman ulaşır?
-          </h3>
-
-          <p>
-            Siparişleriniz hazırlık sürecinin ardından güvenli şekilde
-            kargo firmasına teslim edilir.
-          </p>
-        </div>
-
-
-        <div>
-          <h3 className="text-metagami-text mb-2 tracking-wide">
-            Ödeme yöntemleri nelerdir?
-          </h3>
-
-          <p>
-            Kredi kartı ve desteklenen online ödeme yöntemleri
-            kullanılabilir.
-          </p>
-        </div>
-
-      </div>
-    ),
+    title: "info.faq.title",
+    content: "info.faq.content",
   },
-
 
   {
     id: "kargo",
-    title: "Kargo & Teslimat",
-    content: (
-      <p>
-        Siparişleriniz kontrol sonrası özenle paketlenerek kargo
-        firmasına teslim edilir.
-        Teslimat süresi bulunduğunuz bölgeye göre değişiklik gösterebilir.
-      </p>
-    ),
+    title: "info.shipping.title",
+    content: "info.shipping.content",
   },
-
 
   {
     id: "iade",
-    title: "İade & Değişim",
-    content: (
-      <p>
-        Kullanılmamış ve tekrar satışa uygun ürünlerde belirtilen süre
-        içerisinde iade ve değişim işlemleri gerçekleştirilebilir.
-      </p>
-    ),
+    title: "info.return.title",
+    content: "info.return.content",
   },
-
 
   {
     id: "gizlilik",
-    title: "Gizlilik Politikası",
-    content: (
-      <p>
-        Kullanıcı bilgileriniz güvenli şekilde korunur ve izinsiz olarak
-        üçüncü kişilerle paylaşılmaz.
-      </p>
-    ),
+    title: "info.privacy.title",
+    content: "info.privacy.content",
   },
-
 
   {
     id: "kvkk",
-    title: "KVKK Aydınlatma Metni",
-    content: (
-      <p>
-        Kişisel verileriniz, 6698 sayılı Kişisel Verilerin Korunması Kanunu
-        kapsamında işlenmekte ve korunmaktadır.
-      </p>
-    ),
+    title: "info.kvkk.title",
+    content: "info.kvkk.content",
   },
-
 
   {
     id: "mesafeli-satis",
-    title: "Mesafeli Satış Sözleşmesi",
-    content: (
-      <p>
-        Bu sözleşme, elektronik ortamda gerçekleştirilen satışlarda
-        alıcı ve satıcının hak ve yükümlülüklerini düzenler.
-      </p>
-    ),
+    title: "info.distanceSale.title",
+    content: "info.distanceSale.content",
   },
-
 ];
-
 
 
 
 export default function BilgiContent() {
 
 
+  const { t } = useLanguage();
+
+
   const searchParams = useSearchParams();
+
   const router = useRouter();
 
 
@@ -141,8 +74,10 @@ export default function BilgiContent() {
 
   useEffect(() => {
 
-    if(urlSection){
+    if (urlSection) {
+
       setActive(urlSection);
+
     }
 
   }, [urlSection]);
@@ -192,14 +127,18 @@ export default function BilgiContent() {
       <div className="max-w-[900px] mx-auto">
 
 
+
         <h1 className="
           text-xl
           tracking-[0.4em]
           uppercase
           mb-12
         ">
-          Bilgi Merkezi
+
+          {t("info.title")}
+
         </h1>
+
 
 
 
@@ -207,6 +146,7 @@ export default function BilgiContent() {
           divide-y
           divide-metagami-border/30
         ">
+
 
 
           {sections.map((section)=>(
@@ -230,13 +170,16 @@ export default function BilgiContent() {
 
               >
 
+
                 <span className="
                   text-[11px]
                   tracking-[0.35em]
                   uppercase
                   font-bold
                 ">
-                  {section.title}
+
+                  {t(section.title)}
+
                 </span>
 
 
@@ -249,6 +192,7 @@ export default function BilgiContent() {
                   {active === section.id ? "−" : "+"}
 
                 </span>
+
 
 
               </button>
@@ -265,7 +209,7 @@ export default function BilgiContent() {
                   duration-500
                   ${
                     active === section.id
-                    ? 
+                    ?
                     "max-h-[800px] opacity-100 pb-8"
                     :
                     "max-h-0 opacity-0"
@@ -274,6 +218,8 @@ export default function BilgiContent() {
 
               >
 
+
+
                 <div className="
                   text-sm
                   leading-8
@@ -281,9 +227,26 @@ export default function BilgiContent() {
                   tracking-wide
                 ">
 
-                  {section.content}
+
+                  {String(t(section.content))
+  .split("\n\n")
+  .map((text: string, index: number)=>(
+
+                      <p
+                        key={index}
+                        className="mb-4"
+                      >
+
+                        {text}
+
+                      </p>
+
+                    ))}
+
+
 
                 </div>
+
 
 
               </div>
@@ -296,10 +259,13 @@ export default function BilgiContent() {
           ))}
 
 
+
         </div>
 
 
+
       </div>
+
 
 
     </main>

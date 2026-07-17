@@ -1,6 +1,7 @@
 "use client";
 
 import { useCurrency } from "@/context/CurrencyContext";
+import { useLanguage } from "@/context/LanguageContext";
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -25,15 +26,15 @@ export default function CollectionView({
   searchQuery = "",
 }: CollectionViewProps) {
 
+
   const { formatPrice } = useCurrency();
+
+  const { t } = useLanguage();
+
 
   const [sortBy, setSortBy] = useState("all");
 
 
-  /*
-    SEARCH FILTER
-    Shopify ürünleri içinde arama yapar
-  */
 
   const filteredProducts = useMemo(() => {
 
@@ -48,22 +49,25 @@ export default function CollectionView({
         .trim();
 
 
-
     return products.filter((product) => {
 
       return (
-  product.title
-    .toLowerCase()
-    .includes(query)
-  ||
-  product.handle
-    .toLowerCase()
-    .includes(query)
-  ||
-  product.description
-    ?.toLowerCase()
-    .includes(query)
-);
+        product.title
+          .toLowerCase()
+          .includes(query)
+
+        ||
+
+        product.handle
+          .toLowerCase()
+          .includes(query)
+
+        ||
+
+        product.description
+          ?.toLowerCase()
+          .includes(query)
+      );
 
     });
 
@@ -77,10 +81,6 @@ export default function CollectionView({
 
 
 
-  /*
-    SORT
-  */
-
   const sortedProducts = useMemo(() => {
 
     const list = [
@@ -89,6 +89,7 @@ export default function CollectionView({
 
 
     switch (sortBy) {
+
 
       case "price-asc":
 
@@ -130,11 +131,11 @@ export default function CollectionView({
 
 
 
+
   return (
+
     <main className="relative min-h-screen bg-metagami-bg overflow-x-hidden">
 
-
-      {/* BACKGROUND GRID */}
 
       <div
         className="
@@ -154,7 +155,6 @@ export default function CollectionView({
 
 
 
-      {/* LARGE BACKGROUND TITLE */}
 
       <div
         className="
@@ -182,14 +182,14 @@ export default function CollectionView({
             whitespace-nowrap
           "
         >
-          COLLECTION
+          {t("collection.title")}
         </h1>
+
 
       </div>
 
 
 
-      {/* TOP BAR */}
 
       <section
         className="
@@ -227,7 +227,7 @@ export default function CollectionView({
               text-metagami-muted
             "
           >
-            Signature Collection
+            {t("collection.signature")}
           </span>
 
 
@@ -240,13 +240,16 @@ export default function CollectionView({
               text-metagami-muted
             "
           >
-            {filteredProducts.length} Sculptures
+            {filteredProducts.length} {t("collection.sculptures")}
           </span>
+
 
         </div>
 
       </section>
-            {/* HERO SECTION */}
+
+
+
 
       <section
         className="
@@ -273,6 +276,7 @@ export default function CollectionView({
 
           <div>
 
+
             <span
               className="
                 uppercase
@@ -285,6 +289,7 @@ export default function CollectionView({
             >
               METAGAMI STUDIO
             </span>
+
 
 
             <h1
@@ -301,8 +306,9 @@ export default function CollectionView({
                 md:leading-none
               "
             >
-              COLLECTION
+              {t("collection.title")}
             </h1>
+
 
 
             <div
@@ -317,6 +323,7 @@ export default function CollectionView({
             />
 
 
+
             <p
               className="
                 mt-4
@@ -329,553 +336,512 @@ export default function CollectionView({
                 text-metagami-muted
               "
             >
-              Discover handcrafted stainless steel sculptures inspired by
-              architecture, aviation and contemporary design. Each object is
-              produced with precision to become a timeless statement piece.
+              {t("collection.description")}
             </p>
 
-          </div>
-
-
-
-          <div
-            className="
-              flex
-              justify-start
-              lg:justify-end
-            "
-          >
-
-            <div
-              className="
-                text-left
-                lg:text-right
-              "
-            >
-
-              <div
-                className="
-                  font-display
-                  text-4xl
-                  md:text-6xl
-                  font-black
-                "
-              >
-                {filteredProducts.length}
-              </div>
-
-
-              <div
-                className="
-                  mt-1
-                  md:mt-2
-                  uppercase
-                  tracking-[0.25em]
-                  md:tracking-[0.35em]
-                  text-[10px]
-                  md:text-xs
-                  text-metagami-muted
-                "
-              >
-                Products Available
-              </div>
-
-
-            </div>
 
           </div>
-
-
-        </div>
-
-
-      </section>
-
-
-
-
-
-      {/* STICKY TOOLBAR */}
-
-      <section
+                <div
         className="
-          sticky
-          top-16
-          md:top-20
-          z-30
-          backdrop-blur-md
-          bg-metagami-bg/85
-          border-y
-          border-metagami-border
+          flex
+          justify-start
+          lg:justify-end
         "
       >
 
         <div
           className="
-            max-w-[1440px]
-            mx-auto
-            px-4
-            md:px-12
-            h-14
-            md:h-16
-            flex
-            items-center
-            justify-between
-            gap-4
+            text-left
+            lg:text-right
           "
         >
 
-
           <div
             className="
-              flex
-              gap-4
-              md:gap-8
-              text-[10px]
-              md:text-xs
-              uppercase
-              tracking-[0.2em]
-              md:tracking-[0.35em]
-              overflow-x-auto
-              no-scrollbar
-              py-2
+              font-display
+              text-4xl
+              md:text-6xl
+              font-black
             "
           >
-
-
-            <button
-              onClick={() => setSortBy("all")}
-              className={`
-                whitespace-nowrap
-                ${
-                  sortBy === "all"
-                  ? "font-bold text-black"
-                  : "text-metagami-muted"
-                }
-              `}
-            >
-              ALL
-            </button>
-
-
-
-            <button
-              onClick={() => setSortBy("name")}
-              className={`
-                whitespace-nowrap
-                ${
-                  sortBy === "name"
-                  ? "font-bold text-black"
-                  : "text-metagami-muted"
-                }
-              `}
-            >
-              NAME
-            </button>
-
-
-
-            <button
-              onClick={() => setSortBy("price-asc")}
-              className={`
-                whitespace-nowrap
-                ${
-                  sortBy === "price-asc"
-                  ? "font-bold text-black"
-                  : "text-metagami-muted"
-                }
-              `}
-            >
-              PRICE ↑
-            </button>
-
-
-
-            <button
-              onClick={() => setSortBy("price-desc")}
-              className={`
-                whitespace-nowrap
-                ${
-                  sortBy === "price-desc"
-                  ? "font-bold text-black"
-                  : "text-metagami-muted"
-                }
-              `}
-            >
-              PRICE ↓
-            </button>
-
-
+            {filteredProducts.length}
           </div>
 
 
-
           <div
             className="
+              mt-1
+              md:mt-2
               uppercase
-              tracking-[0.2em]
+              tracking-[0.25em]
               md:tracking-[0.35em]
               text-[10px]
               md:text-xs
               text-metagami-muted
-              whitespace-nowrap
-              hidden
-              sm:block
             "
           >
-            {sortedProducts.length} PRODUCTS
+            {t("collection.productsAvailable")}
           </div>
-
 
         </div>
 
+      </div>
 
-      </section>
-            {/* PRODUCT GRID */}
 
-      <section
+    </div>
+
+  </section>
+
+
+
+
+
+  {/* TOOLBAR */}
+
+  <section
+    className="
+      sticky
+      top-16
+      md:top-20
+      z-30
+      backdrop-blur-md
+      bg-metagami-bg/85
+      border-y
+      border-metagami-border
+    "
+  >
+
+    <div
+      className="
+        max-w-[1440px]
+        mx-auto
+        px-4
+        md:px-12
+        h-14
+        md:h-16
+        flex
+        items-center
+        justify-between
+        gap-4
+      "
+    >
+
+
+      <div
         className="
-          relative
-          z-10
-          max-w-[1440px]
-          mx-auto
-          px-4
-          md:px-12
-          py-12
-          md:py-24
+          flex
+          gap-4
+          md:gap-8
+          text-[10px]
+          md:text-xs
+          uppercase
+          tracking-[0.2em]
+          md:tracking-[0.35em]
+          overflow-x-auto
+          no-scrollbar
+          py-2
         "
       >
 
-        <div
-          className="
-            grid
-            grid-cols-1
-            md:grid-cols-2
-            xl:grid-cols-3
-            gap-10
-            md:gap-16
-          "
+
+        <button
+          onClick={() => setSortBy("all")}
+          className={`
+            whitespace-nowrap
+            ${
+              sortBy === "all"
+              ? "font-bold text-black"
+              : "text-metagami-muted"
+            }
+          `}
         >
+          {t("collection.all")}
+        </button>
 
-          {
-            sortedProducts.length > 0 ? (
 
-              sortedProducts.map((product) => (
 
-                <Link
-                  key={product.id}
-                  href={`/product/${product.handle}`}
-                  className="group block"
+        <button
+          onClick={() => setSortBy("name")}
+          className={`
+            whitespace-nowrap
+            ${
+              sortBy === "name"
+              ? "font-bold text-black"
+              : "text-metagami-muted"
+            }
+          `}
+        >
+          {t("collection.name")}
+        </button>
+
+
+
+        <button
+          onClick={() => setSortBy("price-asc")}
+          className={`
+            whitespace-nowrap
+            ${
+              sortBy === "price-asc"
+              ? "font-bold text-black"
+              : "text-metagami-muted"
+            }
+          `}
+        >
+          {t("collection.priceAsc")}
+        </button>
+
+
+
+        <button
+          onClick={() => setSortBy("price-desc")}
+          className={`
+            whitespace-nowrap
+            ${
+              sortBy === "price-desc"
+              ? "font-bold text-black"
+              : "text-metagami-muted"
+            }
+          `}
+        >
+          {t("collection.priceDesc")}
+        </button>
+
+
+      </div>
+
+
+
+
+      <div
+        className="
+          uppercase
+          tracking-[0.2em]
+          md:tracking-[0.35em]
+          text-[10px]
+          md:text-xs
+          text-metagami-muted
+          whitespace-nowrap
+          hidden
+          sm:block
+        "
+      >
+        {sortedProducts.length} {t("collection.products")}
+      </div>
+
+
+    </div>
+
+
+  </section>
+
+
+
+
+
+  {/* PRODUCTS */}
+
+  <section
+    className="
+      relative
+      z-10
+      max-w-[1440px]
+      mx-auto
+      px-4
+      md:px-12
+      py-12
+      md:py-24
+    "
+  >
+
+    <div
+      className="
+        grid
+        grid-cols-1
+        md:grid-cols-2
+        xl:grid-cols-3
+        gap-10
+        md:gap-16
+      "
+    >
+
+      {
+        sortedProducts.length > 0 ? (
+
+          sortedProducts.map((product)=>(
+
+
+            <Link
+              key={product.id}
+              href={`/product/${product.handle}`}
+              className="group block"
+            >
+
+
+              <article
+                className="
+                  transition-all
+                  duration-500
+                  hover:-translate-y-1
+                  md:hover:-translate-y-2
+                "
+              >
+
+
+                <div
+                  className="
+                    relative
+                    aspect-[4/5]
+                    overflow-hidden
+                    border
+                    border-metagami-border
+                    bg-[#efefef]
+                    transition-all
+                    duration-500
+                    group-hover:border-black
+                  "
                 >
 
-                  <article
+                  <Image
+                    src={product.image}
+                    alt={product.title}
+                    fill
+                    sizes="
+                      (max-width:768px) 100vw,
+                      (max-width:1200px) 50vw,
+                      33vw
+                    "
                     className="
+                      object-cover
                       transition-all
-                      duration-500
-                      hover:-translate-y-1
-                      md:hover:-translate-y-2
+                      duration-700
+                      ease-out
+                      group-hover:scale-[1.05]
+                    "
+                  />
+
+
+                </div>
+
+
+
+
+                <div
+                  className="
+                    pt-6
+                    md:pt-8
+                    pb-6
+                    md:pb-8
+                    border-b
+                    border-metagami-border
+                  "
+                >
+
+
+                  <div
+                    className="
+                      flex
+                      justify-between
+                      items-start
+                      gap-4
                     "
                   >
 
 
-                    {/* IMAGE */}
+                    <div>
 
-                    <div
-                      className="
-                        relative
-                        aspect-[4/5]
-                        overflow-hidden
-                        border
-                        border-metagami-border
-                        bg-[#efefef]
-                        transition-all
-                        duration-500
-                        group-hover:border-black
-                      "
-                    >
 
-                      <Image
-                        src={product.image}
-                        alt={product.title}
-                        fill
-                        sizes="
-                          (max-width:768px) 100vw,
-                          (max-width:1200px) 50vw,
-                          33vw
-                        "
+                      <h2
                         className="
-                          object-cover
-                          transition-all
-                          duration-700
-                          ease-out
-                          group-hover:scale-[1.05]
+                          font-display
+                          text-2xl
+                          md:text-3xl
+                          font-black
+                          uppercase
                         "
-                      />
+                      >
+                        {product.title}
+                      </h2>
 
 
-                      <div
+
+                      <p
                         className="
-                          absolute
-                          inset-0
-                          bg-black/0
-                          group-hover:bg-black/5
-                          transition-all
-                          duration-500
+                          mt-2
+                          text-[10px]
+                          md:text-[11px]
+                          uppercase
+                          tracking-[0.25em]
+                          text-metagami-muted
                         "
-                      />
+                      >
+                        {t("product.architecturalSculpture")}
+                      </p>
 
 
                     </div>
 
 
 
-
-
-                    {/* INFO */}
-
-                    <div
+                    <span
                       className="
-                        pt-6
-                        md:pt-8
-                        pb-6
-                        md:pb-8
-                        border-b
-                        border-metagami-border
-                        group-hover:border-black
-                        transition-all
-                        duration-500
+                        font-display
+                        text-xl
+                        md:text-2xl
+                        font-bold
+                      "
+                    >
+                      {formatPrice(product.price)}
+                    </span>
+
+
+                  </div>
+
+
+
+
+
+                  <div
+                    className="
+                      mt-6
+                      md:mt-10
+                      flex
+                      justify-between
+                      items-center
+                    "
+                  >
+
+
+                    <span
+                      className="
+                        uppercase
+                        text-[10px]
+                        md:text-[11px]
+                        tracking-[0.25em]
+                        text-metagami-muted
+                      "
+                    >
+                      {t("product.stainlessSteel")}
+                    </span>
+
+
+
+                    <span
+                      className="
+                        uppercase
+                        text-[10px]
+                        md:text-[11px]
+                        tracking-[0.25em]
                       "
                     >
 
+                      {t("product.viewProduct")} →
 
-                      <div
-                        className="
-                          flex
-                          justify-between
-                          items-start
-                          gap-4
-                        "
-                      >
-
-
-                        <div>
+                    </span>
 
 
-                          <h2
-                            className="
-                              font-display
-                              text-2xl
-                              md:text-3xl
-                              font-black
-                              uppercase
-                              leading-tight
-                            "
-                          >
-                            {product.title}
-                          </h2>
+                  </div>
 
 
+                </div>
 
-                          <p
-                            className="
-                              mt-2
-                              text-[10px]
-                              md:text-[11px]
-                              uppercase
-                              tracking-[0.25em]
-                              md:tracking-[0.35em]
-                              text-metagami-muted
-                            "
-                          >
-                            Architectural Sculpture
-                          </p>
 
+              </article>
 
-                        </div>
 
+            </Link>
 
 
+          ))
 
-                        <span
-                          className="
-                            font-display
-                            text-xl
-                            md:text-2xl
-                            font-bold
-                            whitespace-nowrap
-                          "
-                        >
-                          {formatPrice(product.price)}
-                        </span>
+        ) : (
 
 
-                      </div>
+          <div
+            className="
+              col-span-full
+              py-20
+              text-center
+              uppercase
+              tracking-[0.3em]
+              text-sm
+              text-metagami-muted
+            "
+          >
 
+            {t("collection.noProducts")}
 
+          </div>
 
 
+        )
 
-                      <div
-                        className="
-                          mt-6
-                          md:mt-10
-                          flex
-                          justify-between
-                          items-center
-                        "
-                      >
+      }
 
 
-                        <span
-                          className="
-                            uppercase
-                            text-[10px]
-                            md:text-[11px]
-                            tracking-[0.25em]
-                            md:tracking-[0.35em]
-                            text-metagami-muted
-                          "
-                        >
-                          Stainless Steel
-                        </span>
+    </div>
 
 
+  </section>
 
 
-                        <span
-                          className="
-                            uppercase
-                            text-[10px]
-                            md:text-[11px]
-                            tracking-[0.25em]
-                            md:tracking-[0.35em]
-                            flex
-                            items-center
-                            gap-2
-                            transition-all
-                            duration-300
-                            group-hover:gap-4
-                          "
-                        >
 
-                          View Product
 
-                          <span
-                            className="
-                              group-hover:translate-x-2
-                              transition-transform
-                              duration-300
-                            "
-                          >
-                            →
-                          </span>
 
-                        </span>
+  <footer
+    className="
+      relative
+      z-10
+      border-t
+      border-metagami-border
+    "
+  >
 
+    <div
+      className="
+        max-w-[1440px]
+        mx-auto
+        px-4
+        md:px-12
+        py-6
+        md:py-8
+        flex
+        flex-col
+        md:flex-row
+        justify-between
+        items-center
+        text-center
+        md:text-left
+        gap-3
+        text-[9px]
+        md:text-[10px]
+        uppercase
+        tracking-[0.25em]
+        text-metagami-muted
+      "
+    >
 
+      <span>
+        METAGAMI STUDIO
+      </span>
 
-                      </div>
 
+      <span>
+        {t("footer.handcrafted")}
+      </span>
 
-                    </div>
 
+      <span>
+        Worldwide Shipping
+      </span>
 
-                  </article>
 
+    </div>
 
-                </Link>
 
-              ))
+  </footer>
 
-            ) : (
 
+</main>
 
-              <div
-                className="
-                  col-span-full
-                  py-20
-                  text-center
-                  uppercase
-                  tracking-[0.3em]
-                  text-sm
-                  text-metagami-muted
-                "
-              >
-                No Products Found
-              </div>
-
-
-            )
-          }
-
-
-        </div>
-
-
-      </section>
-
-
-
-
-
-      {/* FOOTER */}
-
-      <footer
-        className="
-          relative
-          z-10
-          border-t
-          border-metagami-border
-        "
-      >
-
-        <div
-          className="
-            max-w-[1440px]
-            mx-auto
-            px-4
-            md:px-12
-            py-6
-            md:py-8
-            flex
-            flex-col
-            md:flex-row
-            justify-between
-            items-center
-            text-center
-            md:text-left
-            gap-3
-            md:gap-4
-            text-[9px]
-            md:text-[10px]
-            uppercase
-            tracking-[0.25em]
-            md:tracking-[0.35em]
-            text-metagami-muted
-          "
-        >
-
-          <span>
-            METAGAMI STUDIO
-          </span>
-
-
-          <span>
-            Designed & Manufactured in Türkiye
-          </span>
-
-
-          <span>
-            Worldwide Shipping
-          </span>
-
-
-        </div>
-
-
-      </footer>
-
-
-    </main>
   );
 }

@@ -7,6 +7,7 @@ import { Search, ShoppingBag, Menu, X } from "lucide-react";
 
 import { useCart } from "@/context/CartContext";
 import { useCurrency } from "@/context/CurrencyContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 
 export default function Header() {
@@ -14,6 +15,11 @@ export default function Header() {
 
   const pathname = usePathname();
   const router = useRouter();
+    const {
+  language,
+  setLanguage,
+  t
+} = useLanguage();
 
 
 
@@ -168,19 +174,19 @@ export default function Header() {
 
     {
       href: "/",
-      label: "HOME",
+      label: t("nav.home"),
     },
 
 
     {
       href: "/koleksiyon",
-      label: "COLLECTION",
+      label: t("nav.collection"),
     },
 
 
     {
       href: "/iletisim",
-      label: "CONTACT",
+      label: t("nav.contact"),
     },
 
   ];
@@ -303,7 +309,7 @@ export default function Header() {
 
           <div className="text-[9px] tracking-[0.6em]">
 
-            STUDIO
+            {t("header.studio")}
 
           </div>
 
@@ -408,7 +414,80 @@ export default function Header() {
             md:gap-8
           "
         >
+{/* LANGUAGE SWITCHER */}
 
+<div className="hidden xl:flex items-center gap-3">
+
+  {(["tr","en"] as const).map((item)=>{
+
+    return (
+
+      <button
+
+        key={item}
+
+        onClick={() =>
+          setLanguage(item)
+        }
+
+        className="
+          group
+          relative
+          px-1
+          py-1
+        "
+
+      >
+
+        <span
+          className={`
+            text-[11px]
+            tracking-[0.30em]
+            uppercase
+            transition-colors
+
+            ${
+              language === item
+              ? "text-black"
+              : "text-metagami-muted group-hover:text-black"
+            }
+          `}
+        >
+
+          {item}
+
+        </span>
+
+
+        <span
+
+          className={`
+            absolute
+            left-0
+            -bottom-1
+            h-px
+            bg-black
+            transition-all
+            duration-300
+
+            ${
+              language === item
+              ? "w-full"
+              : "w-0"
+            }
+
+          `}
+
+        />
+
+
+      </button>
+
+    );
+
+  })}
+
+</div>
 
 
           {/* Currency */}
@@ -620,7 +699,7 @@ export default function Header() {
     setSearchOpen(!searchOpen)
   }
 
-  aria-label="Arama Aç"
+  aria-label={t("header.openSearch")}
 
   className="
     flex
@@ -668,8 +747,7 @@ export default function Header() {
               setMobileMenuOpen(true)
             }
 
-            aria-label="Menüyü Aç"
-
+            aria-label={t("header.openMenu")}
             className="
               flex
               lg:hidden
@@ -841,7 +919,7 @@ export default function Header() {
               }
 
 
-              placeholder="SEARCH PRODUCTS..."
+              placeholder={t("header.searchPlaceholder")}
 
 
               className="
@@ -922,7 +1000,7 @@ export default function Header() {
 
           >
 
-            Search collection products
+            {t("header.searchDescription")}
 
           </p>
 
@@ -1161,7 +1239,7 @@ export default function Header() {
 
           >
 
-            Menu
+            {t("header.menu")}
 
 
           </h2>
@@ -1183,7 +1261,7 @@ export default function Header() {
           }
 
 
-          aria-label="Menüyü Kapat"
+          aria-label={t("header.closeMenu")}
 
 
 
@@ -1365,7 +1443,89 @@ export default function Header() {
 
 
 
+{/* MOBILE LANGUAGE */}
 
+<div
+
+className="
+px-8
+pb-6
+"
+
+>
+
+<p
+
+className="
+text-[10px]
+tracking-[0.35em]
+uppercase
+text-metagami-muted
+mb-4
+"
+
+>
+
+{t("header.language")}
+
+</p>
+
+
+<div className="flex items-center gap-6">
+
+
+{(["tr","en"] as const).map((item)=>{
+
+
+return (
+
+<button
+
+key={item}
+
+onClick={() =>
+setLanguage(item)
+}
+
+className={`
+
+text-xs
+
+tracking-[0.25em]
+
+uppercase
+
+pb-1
+
+border-b
+
+
+${
+language === item
+? "text-black border-black"
+: "text-metagami-muted border-transparent"
+}
+
+
+`}
+
+>
+
+{item}
+
+</button>
+
+
+);
+
+
+})}
+
+
+</div>
+
+
+</div>
 
       {/* MOBILE CURRENCY */}
 
@@ -1421,7 +1581,7 @@ export default function Header() {
 
         >
 
-          Currency
+          {t("header.currency")}
 
 
         </p>

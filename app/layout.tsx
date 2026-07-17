@@ -6,10 +6,11 @@ import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import Newsletter from "@/components/Newsletter";
 
-import { CartProvider } from "@/context/CartContext";
-import { CurrencyProvider } from "@/context/CurrencyContext";
-
 import Cart from "@/components/Cart";
+
+import { LanguageProvider } from "@/context/LanguageContext";
+import { CurrencyProvider } from "@/context/CurrencyContext";
+import { CartProvider } from "@/context/CartContext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -39,23 +40,29 @@ export default function RootLayout({
     >
       <body className="bg-metagami-bg text-metagami-text bg-technical-grid font-sans antialiased flex flex-col min-h-screen">
 
-        <CurrencyProvider>
-          <CartProvider>
+        <LanguageProvider>
 
-            <Header />
+          <CurrencyProvider>
 
-            <main className="flex-grow pt-20">
-              {children}
-            </main>
+            <CartProvider>
 
-            <Newsletter />
+              <Header />
 
-            <Footer />
+              <main className="flex-grow pt-20">
+                {children}
+              </main>
 
-            <Cart />
+              <Newsletter />
 
-          </CartProvider>
-        </CurrencyProvider>
+              <Footer />
+
+              <Cart />
+
+            </CartProvider>
+
+          </CurrencyProvider>
+
+        </LanguageProvider>
 
       </body>
     </html>
