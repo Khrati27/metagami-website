@@ -347,7 +347,24 @@ info: {
       "Bu sözleşme, elektronik ortamda gerçekleştirilen satışlarda alıcı ve satıcının hak ve yükümlülüklerini düzenler."
   },
 },
+error: {
+    title: "Beklenmedik bir sorun oluştu",
+    desc: "Sayfayı yüklerken teknik bir pürüz yaşadık. Lütfen tekrar dene.",
+    tryAgain: "Tekrar Dene",
+    home: "Ana Sayfaya Dön",
+  },
+  
+  notFound: {
+    title: "Sayfa Bulunamadı",
+    desc: "Aradığınız ürün yayından kaldırılmış veya URL yanlış yazılmış olabilir.",
+    home: "Ana Sayfaya Dön",
+  },
+  
+  loading: {
+    text: "YÜKLENİYOR...",
+  },
+
+};
   
 
 
-};

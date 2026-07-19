@@ -371,6 +371,23 @@ info: {
   },
 
 },
-
+error: {
+    title: "An unexpected error occurred",
+    desc: "We encountered a technical issue while loading the page. Please try again.",
+    tryAgain: "Try Again",
+    home: "Return to Home",
+  },
+  
+  notFound: {
+    title: "Page Not Found",
+    desc: "The product you are looking for might have been removed or the URL is incorrect.",
+    home: "Return to Home",
+  },
+  
+  loading: {
+    text: "LOADING...",
+  },
 
 };
+
+
