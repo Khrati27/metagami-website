@@ -167,6 +167,11 @@ export default {
   specifications: "TEKNİK ÖZELLİKLER",
 
   material: "MALZEME",
+ 
+  materials: {
+  steel: "ÇELİK",
+  stainlessSteel: "PASLANMAZ ÇELİK",
+},
 
   finish: "YÜZEY",
 

@@ -14,6 +14,19 @@ export default function AddToCartButton({
   const { addToCart } = useCart();
   const { formatPrice } = useCurrency();
   const { t } = useLanguage();
+  const translateMaterial = (value: string) => {
+  const normalized = value.trim().toLowerCase();
+
+  if (normalized === "çelik") {
+    return t("product.materials.steel");
+  }
+
+  if (normalized === "paslanmaz çelik") {
+    return t("product.materials.stainlessSteel");
+  }
+
+  return value;
+};
 
 
   const [status, setStatus] = useState<
@@ -35,11 +48,16 @@ export default function AddToCartButton({
   );
 
 
-  const sizeOption = product.options?.find(
-    (o: any) =>
-      o.name.toLowerCase().includes("boyut") ||
-      o.name.toLowerCase().includes("size")
-  );
+ const materialOption = product.options?.find(
+  (o: any) => {
+    const name = o.name.toLowerCase();
+
+    return (
+      name.includes("material") ||
+      name.includes("malzeme")
+    );
+  }
+);
 
 
 
@@ -53,9 +71,9 @@ export default function AddToCartButton({
   );
 
 
-  const [selectedSize, setSelectedSize] = useState(
-    sizeOption?.values?.[0] ?? ""
-  );
+  const [selectedMaterial, setSelectedMaterial] = useState(
+  materialOption?.values?.[0] ?? ""
+);
 
 
 
@@ -86,14 +104,12 @@ export default function AddToCartButton({
           }
 
 
-          if (
-            name.includes("boyut") ||
-            name.includes("size")
-          ) {
-
-            return option.value === selectedSize;
-
-          }
+         if (
+  name.includes("material") ||
+  name.includes("malzeme")
+) {
+  return option.value === selectedMaterial;
+}
 
 
           return true;
@@ -107,7 +123,7 @@ export default function AddToCartButton({
 
   }, [
     selectedColor,
-    selectedSize,
+    selectedMaterial,
     product
   ]);
 
@@ -141,15 +157,12 @@ export default function AddToCartButton({
         }
 
 
-        if (
-          name.includes("boyut") ||
-          name.includes("size")
-        ) {
-
-          setSelectedSize(option.value);
-
-        }
-
+      if (
+  name.includes("material") ||
+  name.includes("malzeme")
+) {
+  setSelectedMaterial(option.value);
+}
       }
     );
 
@@ -331,7 +344,7 @@ export default function AddToCartButton({
       {/* SIZE */}
 
 
-      {sizeOption && (
+      {materialOption && (
 
         <div>
 
@@ -346,7 +359,7 @@ export default function AddToCartButton({
             "
           >
 
-            {t("product.size")}
+            {t("product.material")}
 
           </h3>
 
@@ -355,11 +368,11 @@ export default function AddToCartButton({
           <div className="flex flex-wrap gap-3">
 
 
-            {sizeOption.values.map((size: string) => {
+            {materialOption.values.map((material: string) => {
 
 
               const active =
-                selectedSize === size;
+  selectedMaterial === material;
 
 
 
@@ -367,13 +380,13 @@ export default function AddToCartButton({
 
                 <button
 
-                  key={size}
+                  key={translateMaterial(material)}
 
                   type="button"
 
                   onClick={() =>
-                    setSelectedSize(size)
-                  }
+  setSelectedMaterial(material)
+}
 
 
                   className={`
@@ -401,7 +414,7 @@ export default function AddToCartButton({
 
                 >
 
-                  {size}
+                  {translateMaterial(material)}
 
                 </button>
 

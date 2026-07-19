@@ -168,6 +168,11 @@ export default {
 
   material: "MATERIAL",
 
+  materials: {
+  steel: "STEEL",
+  stainlessSteel: "STAINLESS STEEL",
+},
+
   finish: "FINISH",
 
   application: "APPLICATION",
