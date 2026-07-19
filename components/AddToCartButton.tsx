@@ -11,7 +11,7 @@ export default function AddToCartButton({
   product: any;
 }) {
 
-  const { addToCart, openCart } = useCart();
+  const { addToCart } = useCart();
   const { formatPrice } = useCurrency();
   const { t } = useLanguage();
 
@@ -189,30 +189,37 @@ export default function AddToCartButton({
     setStatus("loading");
 
 
-    await new Promise((resolve) =>
-      setTimeout(resolve, 450)
-    );
+    try {
+
+      // addToCart artık Shopify'ın Cart API'sine gerçek bir
+      // istek atıyor (cartCreate / cartLinesAdd) ve sepet
+      // çekmecesini kendi içinde açıyor.
+      await addToCart({
+
+        id: product.id,
+
+        variantId: selectedVariant.id,
+
+        title: product.title,
+
+        image: product.image,
+
+        price: selectedVariant.price,
+
+      });
 
 
-    addToCart({
+      setStatus("added");
 
-      id: product.id,
+    } catch (error) {
 
-      variantId: selectedVariant.id,
+      console.error("Sepete eklenemedi:", error);
 
-      title: product.title,
+      setStatus("idle");
 
-      image: product.image,
+      return;
 
-      price: selectedVariant.price,
-
-    });
-
-
-    openCart();
-
-
-    setStatus("added");
+    }
 
 
     setTimeout(() => {

@@ -13,6 +13,8 @@ export default function Cart() {
     updateQuantity,
     isCartOpen,
     closeCart,
+    checkoutUrl,
+    isLoading,
   } = useCart();
 
   const [isRedirecting, setIsRedirecting] = useState(false);
@@ -68,25 +70,14 @@ export default function Cart() {
   ----------------------------- */
 
   const handleCheckout = () => {
-    if (cartItems.length === 0) return;
+    if (cartItems.length === 0 || !checkoutUrl) return;
 
     setIsRedirecting(true);
 
-    const cartQuery = cartItems
-      .map((item) => {
-        const idParts = item.variantId.split("/");
-
-        const numericId =
-          idParts[idParts.length - 1];
-
-        return `${numericId}:${item.quantity}`;
-      })
-      .join(",");
-
-    const storeDomain =
-      process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
-
-    window.location.href = `https://${storeDomain}/cart/${cartQuery}`;
+    // Shopify'ın kendi ürettiği checkout linki: indirim kodları,
+    // hediye kartları, kargo/vergi hesaplama ve terk edilmiş
+    // sepet takibi bu sayede sorunsuz çalışır.
+    window.location.href = checkoutUrl;
   };
 
   return (
@@ -299,7 +290,8 @@ backdrop-blur-xl
                                 item.quantity - 1
                               )
                             }
-                            className="w-11 h-11 hover:bg-black hover:text-white transition"
+                            disabled={isLoading}
+                            className="w-11 h-11 hover:bg-black hover:text-white transition disabled:opacity-50 disabled:cursor-not-allowed"
                           >
                             −
                           </button>
@@ -317,7 +309,8 @@ backdrop-blur-xl
                                 item.quantity + 1
                               )
                             }
-                            className="w-11 h-11 hover:bg-black hover:text-white transition"
+                            disabled={isLoading}
+                            className="w-11 h-11 hover:bg-black hover:text-white transition disabled:opacity-50 disabled:cursor-not-allowed"
                           >
                             +
                           </button>
@@ -328,7 +321,8 @@ backdrop-blur-xl
                           onClick={() =>
                             removeFromCart(item.variantId)
                           }
-                          className="text-[11px] uppercase tracking-[0.3em] text-metagami-muted hover:text-black transition"
+                          disabled={isLoading}
+                          className="text-[11px] uppercase tracking-[0.3em] text-metagami-muted hover:text-black transition disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           {t("cart.remove")} →
                         </button>
@@ -414,7 +408,7 @@ backdrop-blur-xl
 
               <button
                 onClick={handleCheckout}
-                disabled={isRedirecting}
+                disabled={isRedirecting || isLoading || !checkoutUrl}
                 className="
                   mt-8
 
@@ -496,4 +490,3 @@ backdrop-blur-xl
   );
 
 }
-        
