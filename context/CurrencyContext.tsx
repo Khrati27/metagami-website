@@ -4,7 +4,6 @@ import {
   createContext,
   useContext,
   useEffect,
-  useMemo,
   useState,
 } from "react";
 
@@ -28,21 +27,39 @@ export function CurrencyProvider({
 }) {
   const [currency, setCurrencyState] = useState<Currency>("TRY");
 
-  /*
-    Shopify'dan gelen fiyatlar TL (TRY) cinsindendir.
-    Aşağıdaki kurlar 1 TL'nin EUR ve USD karşılığını hesaplar:
-    1 EUR = 46 TL
-    1 USD = 39.3 TL (1.17 USD / 46 TL)
-  */
-  const rates = useMemo(
-    () => ({
-      TRY: 1,
-      EUR: 1 / 46,
-      USD: 1.17 / 46,
-    }),
-    []
-  );
+  // 1. Kurları useMemo yerine state olarak tanımlıyoruz. 
+  // Başlangıç değeri olarak senin sabit kurlarını (yedek senaryo) veriyoruz.
+  const [rates, setRates] = useState({
+    TRY: 1,
+    EUR: 1 / 46,
+    USD: 1.17 / 46,
+  });
 
+  // 2. Sayfa yüklendiğinde canlı kur verilerini çekiyoruz
+  useEffect(() => {
+    const fetchRates = async () => {
+      try {
+        // TRY bazlı canlı döviz kurlarını getirir
+        const response = await fetch("https://open.er-api.com/v6/latest/TRY");
+        const data = await response.json();
+
+        // API başarılı yanıt verdiyse kurları güncelle
+        if (data && data.rates) {
+          setRates({
+            TRY: 1,
+            EUR: data.rates.EUR,
+            USD: data.rates.USD,
+          });
+        }
+      } catch (error) {
+        console.error("Canlı kur verileri çekilemedi, yedek kurlar kullanılıyor:", error);
+      }
+    };
+
+    fetchRates();
+  }, []);
+
+  // 3. Kullanıcının son seçtiği para birimini LocalStorage'dan al
   useEffect(() => {
     const saved = localStorage.getItem("currency") as Currency | null;
 
@@ -58,6 +75,7 @@ export function CurrencyProvider({
 
   const convertPrice = (priceTRY: number) => {
     if (isNaN(priceTRY)) return 0;
+    // Artık dinamik state'ten (rates) gelen değerle çarpılıyor
     return priceTRY * rates[currency];
   };
 

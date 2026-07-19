@@ -493,84 +493,37 @@ export default function Header() {
           {/* Currency */}
 
 
-          <div className="hidden xl:flex items-center gap-2">
-
-
-            {
-              (["TRY","EUR","USD"] as const)
-              .map((item)=>{
-
-
-                return (
-
-                  <button
-
-                    key={item}
-
-                    onClick={() =>
-                      setCurrency(item)
-                    }
-
-                    className="
-                      group
-                      relative
-                      px-2
-                      py-1
-                    "
-
-                  >
-
-
-                    <span
-                      className={`
-                        text-[11px]
-                        tracking-[0.30em]
-                        uppercase
-                        transition-colors
-
-                        ${
-                          currency === item
-                          ? "text-black"
-                          : "text-metagami-muted group-hover:text-black"
-                        }
-                      `}
-                    >
-
-                      {item}
-
-                    </span>
-
-
-
-                    <span
-                      className={`
-                        absolute
-                        left-0
-                        -bottom-1
-                        h-px
-                        bg-black
-                        transition-all
-                        duration-300
-
-                        ${
-                          currency === item
-                          ? "w-full"
-                          : "w-0"
-                        }
-                      `}
-                    />
-
-
-                  </button>
-
-                );
-
-
-              })
-            }
-
-
-          </div>
+         <div className="hidden xl:flex items-center gap-2">
+  <button
+    onClick={() => {
+      const currencies = ["TRY", "EUR", "USD"] as const;
+      const currentIndex = currencies.indexOf(currency);
+      const nextIndex = (currentIndex + 1) % currencies.length;
+      setCurrency(currencies[nextIndex]);
+    }}
+    title={`${currency} - Değiştirmek için tıkla`}
+    className="
+      flex
+      w-10
+      h-10
+      items-center
+      justify-center
+      rounded-full
+      border
+      border-black/10
+      hover:bg-black
+      hover:text-white
+      transition-all
+      duration-300
+      text-[15px]
+      font-medium
+    "
+  >
+    {currency === "TRY" && "₺"}
+    {currency === "EUR" && "€"}
+    {currency === "USD" && "$"}
+  </button>
+</div>
                     {/* SEARCH */}
 
           <button
