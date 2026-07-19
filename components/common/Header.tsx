@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Search, ShoppingBag, Menu, X } from "lucide-react";
 
 import { useCart } from "@/context/CartContext";
@@ -50,6 +50,10 @@ export default function Header() {
 
   const [searchValue, setSearchValue] = useState("");
 
+  const [currencyMenuOpen, setCurrencyMenuOpen] = useState(false);
+
+const currencyMenuRef = useRef<HTMLDivElement>(null);
+
 
 
 
@@ -79,6 +83,24 @@ export default function Header() {
 
 
   }, []);
+  useEffect(() => {
+  function handleClickOutside(event: MouseEvent) {
+    if (
+      currencyMenuRef.current &&
+      !currencyMenuRef.current.contains(event.target as Node)
+    ) {
+      setCurrencyMenuOpen(false);
+    }
+  }
+
+  document.addEventListener("mousedown", handleClickOutside);
+
+  return () =>
+    document.removeEventListener(
+      "mousedown",
+      handleClickOutside
+    );
+}, []);
 
 
 
@@ -493,15 +515,14 @@ export default function Header() {
           {/* Currency */}
 
 
-         <div className="hidden xl:flex items-center gap-2">
+         <div
+  ref={currencyMenuRef}
+  className="relative hidden xl:flex"
+>
   <button
-    onClick={() => {
-      const currencies = ["TRY", "EUR", "USD"] as const;
-      const currentIndex = currencies.indexOf(currency);
-      const nextIndex = (currentIndex + 1) % currencies.length;
-      setCurrency(currencies[nextIndex]);
-    }}
-    title={`${currency} - Değiştirmek için tıkla`}
+    onClick={() =>
+      setCurrencyMenuOpen(!currencyMenuOpen)
+    }
     className="
       flex
       w-10
@@ -523,6 +544,112 @@ export default function Header() {
     {currency === "EUR" && "€"}
     {currency === "USD" && "$"}
   </button>
+
+  <div
+  className={`
+    absolute
+    right-0
+    top-14
+    w-36
+    rounded-2xl
+    border
+    border-black/10
+    bg-[#D5D5D5]
+    shadow-2xl
+    overflow-hidden
+    transition-all
+    duration-300
+    origin-top
+    z-50
+
+    ${
+      currencyMenuOpen
+        ? "opacity-100 scale-100 translate-y-0"
+        : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
+    }
+  `}
+  >
+    {[
+      {
+        code: "TRY",
+        symbol: "₺",
+        name: "Turkish Lira",
+      },
+      {
+        code: "EUR",
+        symbol: "€",
+        name: "Euro",
+      },
+      {
+        code: "USD",
+        symbol: "$",
+        name: "US Dollar",
+      },
+    ].map((item) => (
+      <button
+        key={item.code}
+        onClick={() => {
+          setCurrency(item.code as any);
+          setCurrencyMenuOpen(false);
+        }}
+        className={`
+          w-full
+          flex
+          items-center
+          justify-between
+          px-4
+          py-3
+          transition-all
+          duration-200
+
+          ${
+            currency === item.code
+              ? "bg-black text-white"
+              : "hover:bg-[#C7C7C7]"
+          }
+        `}
+      >
+        <div className="flex items-center gap-3">
+          <div
+            className={`
+              w-8
+              h-8
+              rounded-full
+              border
+              flex
+              items-center
+              justify-center
+              text-sm
+
+              ${
+                currency === item.code
+                  ? "border-white"
+                  : "border-black/10"
+              }
+            `}
+          >
+            {item.symbol}
+          </div>
+
+          <div className="text-left">
+            <div className="text-xs font-medium">
+              {item.code}
+            </div>
+
+            <div className="text-[10px] opacity-70">
+              {item.name}
+            </div>
+          </div>
+        </div>
+
+        {currency === item.code && (
+          <span className="text-sm">
+            ✓
+          </span>
+        )}
+      </button>
+    ))}
+  </div>
 </div>
                     {/* SEARCH */}
 
