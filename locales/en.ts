@@ -351,24 +351,21 @@ info: {
 
 
   privacy: {
-    title: "Privacy Policy",
-    content:
-      "Your user information is securely protected and is not shared with third parties without authorization."
-  },
+      title: "Privacy Policy",
+      content: "At METAGAMI STUDIO, we attach great importance to the security and privacy of your personal data. This privacy policy explains how we collect, use, and protect your information when you visit our website and make a purchase.\n\nInformation We Collect: To complete the order process and provide you with a bespoke service, we collect basic contact information such as your name, email address, phone number, shipping, and billing address. Your payment transactions are encrypted and processed by third-party secure payment gateways; your credit card information is strictly never stored on our servers.\n\nUse of Information: The collected data is used for the order preparation of your handcrafted sculptures, shipping with secure export packaging, delivery notifications, and fulfilling our legal obligations. Additionally, with your explicit consent, we may send you newsletters regarding new collections from our studio.\n\nInformation Sharing: Your personal data is never shared, rented, or sold to third parties for commercial purposes without authorization, except where required by law. Necessary delivery information (address and contact) is only shared with our international shipping and logistics partners to ensure your order reaches you securely.\n\nCookies: We use cookies to perfect your shopping experience on our site, analyze site traffic, and remember your preferences. You can manage your cookie preferences at any time through the consent banner that appears upon your first visit to our site, or via your browser settings."
+    },
 
 
   kvkk: {
-    title: "KVKK Information Notice",
-    content:
-      "Your personal data is processed and protected within the scope of the Turkish Personal Data Protection Law No. 6698."
-  },
+      title: "KVKK Information Notice",
+      content: "As METAGAMI STUDIO, we process your personal data in the capacity of \"Data Controller\" in accordance with the Personal Data Protection Law No. 6698 (\"KVKK\"). Our aim is to inform you transparently about the collection methods, processing purposes, and your rights regarding your personal data.\n\nProcessed Personal Data and Purposes: Your identity (name, surname), contact (email, phone, address), and customer transaction (order history) data are processed to create your orders, issue invoices, manage export/shipping processes, and provide after-sales support.\n\nTransfer of Personal Data: Your data is shared only with authorized international shipping companies, secure payment infrastructure providers, and authorized public institutions within the scope of legal obligations to carry out our operations and deliver your order. Your data is never sold to third parties for commercial purposes.\n\nMethod and Legal Reason for Data Collection: Your data is collected automatically through our website in electronic environments, based on the legal grounds of \"establishment or performance of a contract\" and \"fulfilling the legal obligations of the data controller.\"\n\nYour Rights as a Data Subject: Under Article 11 of the KVKK, you have the right to learn whether your data is processed, request information if processed, request correction of incomplete/incorrect data, and request its deletion within legal frameworks. You can submit your requests to us via our contact form."
+    },
 
 
-  distanceSale: {
-    title: "Distance Sales Agreement",
-    content:
-      "This agreement regulates the rights and obligations of the buyer and seller in electronic sales transactions."
-  },
+ distanceSale: {
+      title: "Distance Sales Agreement",
+      content: "PARTIES AND SUBJECT: This agreement is drawn up between METAGAMI STUDIO (Seller) and the user making a purchase from the website (Buyer) regarding the sale and delivery of the order placed electronically, in accordance with the provisions of the Law on the Protection of the Consumer No. 6502.\n\nPRODUCT AND DELIVERY INFORMATION: The basic characteristics of the sculptures subject to the contract, the sales price including taxes, and the shipping fee are clearly stated on the checkout page. Each sculpture is carefully prepared to order, and the production and delivery times proceed according to the schedule specified in the product details. Products are shipped in international standard premium export crates to prevent damage during transit.\n\nRIGHT OF WITHDRAWAL AND RETURNS: The Buyer has the right of withdrawal within 14 (fourteen) days from the delivery date without showing any reason. However, the right of withdrawal cannot be exercised legally for custom-made (bespoke) or personalized pieces produced according to the Buyer's requests. Returned standard products must be unused and complete in their original packaging (export crate, etc.).\n\nPAYMENT AND DISPUTE RESOLUTION: Payments are collected in advance via credit or debit card through a secure payment infrastructure protected by SSL encryption technology. In any disputes arising from this agreement, Consumer Arbitration Committees or Consumer Courts in the place of residence of the Buyer or Seller are authorized up to the monetary limits declared annually by the Ministry of Customs and Trade."
+    },
 
 },
 error: {
@@ -386,6 +383,14 @@ error: {
   
   loading: {
     text: "LOADING...",
+  },
+
+  cookie: {
+    title: "COOKIE POLICY",
+    description: "We use cookies to improve your shopping experience, analyze our site traffic, and personalize content.",
+    policyLink: "Privacy Policy",
+    accept: "ACCEPT",
+    decline: "DECLINE"
   },
 
 };

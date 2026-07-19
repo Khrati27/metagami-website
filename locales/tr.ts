@@ -330,22 +330,19 @@ info: {
   },
 
   privacy: {
-    title: "Gizlilik Politikası",
-    content:
-      "Kullanıcı bilgileriniz güvenli şekilde korunur ve izinsiz olarak üçüncü kişilerle paylaşılmaz."
-  },
+      title: "Gizlilik Politikası",
+      content: "METAGAMI STUDIO olarak, kişisel verilerinizin güvenliğine ve gizliliğine büyük önem veriyoruz. Bu gizlilik politikası, sitemizi ziyaret ettiğinizde ve alışveriş yaptığınızda bilgilerinizi nasıl topladığımızı, kullandığımızı ve koruduğumuzu açıklamaktadır.\n\nTopladığımız Bilgiler: Sipariş sürecini tamamlamak ve size özel hizmet sunabilmek için adınız, e-posta adresiniz, telefon numaranız, teslimat ve fatura adresiniz gibi temel iletişim bilgilerinizi topluyoruz. Ödeme işlemleriniz, güvenli ödeme altyapısı sağlayan aracı kurumlar tarafından şifrelenerek gerçekleştirilir; kredi kartı bilgileriniz sunucularımızda kesinlikle saklanmaz.\n\nBilgilerin Kullanımı: Elde edilen veriler; el yapımı heykellerinizin sipariş hazırlığı, güvenli ihracat ambalajıyla kargolanması, teslimat süreçleri hakkında bilgilendirme yapılması ve yasal yükümlülüklerimizin yerine getirilmesi amacıyla kullanılır. Ayrıca, onay vermeniz durumunda stüdyomuza ait yeni koleksiyonlar hakkında bültenler gönderebiliriz.\n\nBilgilerin Paylaşımı: Kişisel verileriniz, yasal zorunluluklar haricinde hiçbir şekilde izinsiz olarak üçüncü şahıslarla paylaşılmaz veya ticari amaçla satılamaz. Siparişinizin size güvenle ulaşabilmesi için yalnızca uluslararası kargo ve lojistik iş ortaklarımızla gerekli teslimat bilgileri (adres ve iletişim) paylaşılır.\n\nÇerezler (Cookies): Sitemizdeki alışveriş deneyiminizi kusursuzlaştırmak, site trafiğini analiz etmek ve tercihlerinizi hatırlamak amacıyla çerezler (cookies) kullanıyoruz. Çerez tercihlerinizi sitemize ilk girişinizde karşınıza çıkan onay ekranından veya tarayıcı ayarlarınızdan dilediğiniz zaman yönetebilirsiniz."
+    },
 
   kvkk: {
-    title: "KVKK Aydınlatma Metni",
-    content:
-      "Kişisel verileriniz, 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında işlenmekte ve korunmaktadır."
-  },
+      title: "KVKK Aydınlatma Metni",
+      content: "METAGAMI STUDIO olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu (\"KVKK\") uyarınca, \"Veri Sorumlusu\" sıfatıyla kişisel verilerinizi işliyoruz. Amacımız, kişisel verilerinizin toplanma yöntemleri, işlenme amaçları ve haklarınız konusunda sizi en şeffaf şekilde bilgilendirmektir.\n\nİşlenen Kişisel Verileriniz ve İşlenme Amaçları: Kimlik (ad, soyad), iletişim (e-posta, telefon, adres) ve müşteri işlem (sipariş geçmişi) verileriniz; siparişlerinizin oluşturulması, faturalandırma, ihracat/kargo süreçlerinin yürütülmesi ve satış sonrası destek hizmetlerinin sağlanması amacıyla işlenmektedir.\n\nKişisel Verilerin Aktarımı: Verileriniz, faaliyetlerimizi yürütebilmek ve siparişinizi size ulaştırabilmek amacıyla yalnızca yetkili uluslararası kargo firmaları, ödeme altyapı sağlayıcıları ve yasal zorunluluklar kapsamında yetkili kamu kurumlarıyla paylaşılmaktadır. Verileriniz hiçbir şekilde ticari amaçla üçüncü kişilere satılamaz.\n\nKişisel Veri Toplamanın Yöntemi ve Hukuki Sebebi: Verileriniz, web sitemiz üzerinden elektronik ortamda, \"sözleşmenin kurulması veya ifası\" ile \"veri sorumlusunun hukuki yükümlülüğünü yerine getirebilmesi\" hukuki sebeplerine dayalı olarak otomatik yollarla toplanmaktadır.\n\nİlgili Kişi Olarak Haklarınız: KVKK'nın 11. maddesi kapsamında; verilerinizin işlenip işlenmediğini öğrenme, işlenmişse bilgi talep etme, eksik/yanlış işlenme varsa düzeltilmesini isteme ve yasal sınırlar çerçevesinde silinmesini talep etme haklarına sahipsiniz. Taleplerinizi iletişim formumuz aracılığıyla bize iletebilirsiniz."
+    },
 
   distanceSale: {
-    title: "Mesafeli Satış Sözleşmesi",
-    content:
-      "Bu sözleşme, elektronik ortamda gerçekleştirilen satışlarda alıcı ve satıcının hak ve yükümlülüklerini düzenler."
-  },
+      title: "Mesafeli Satış Sözleşmesi",
+      content: "TARAFLAR VE KONU: Bu sözleşme, METAGAMI STUDIO (Satıcı) ile web sitesinden alışveriş yapan kullanıcı (Alıcı) arasında, elektronik ortamda verilen siparişin satışı ve teslimatı ile ilgili olarak 6502 sayılı Tüketicinin Korunması Hakkında Kanun hükümleri gereğince düzenlenmiştir.\n\nÜRÜN VE TESLİMAT BİLGİLERİ: Sözleşme konusu heykellerin temel özellikleri, vergiler dahil satış fiyatı ve kargo ücreti ödeme sayfasında açıkça belirtilmiştir. Her bir heykel, sipariş üzerine özenle hazırlanmakta olup, üretim ve teslimat süresi ürün detaylarında belirtilen takvime göre işler. Ürünler, nakliye sırasında hasar görmemesi için uluslararası standartlarda premium ihracat sandıkları ile gönderilir.\n\nCAYMA HAKKI VE İADE: Alıcı, ürünün kendisine teslim edildiği tarihten itibaren 14 (on dört) gün içinde hiçbir gerekçe göstermeksizin cayma hakkına sahiptir. Ancak, Alıcı'nın istekleri doğrultusunda özel olarak üretilen (bespoke) veya kişiselleştirilen parçalarda hukuken cayma hakkı kullanılamaz. İade edilecek standart ürünlerin kullanılmamış ve orijinal ambalajında (ihracat sandığı vb.) eksiksiz olması şarttır.\n\nÖDEME VE UYUŞMAZLIKLARIN ÇÖZÜMÜ: Ödemeler, SSL şifreleme teknolojisiyle korunan güvenli ödeme altyapısı üzerinden kredi kartı veya banka kartı ile peşin olarak tahsil edilir. İşbu sözleşmeden doğabilecek uyuşmazlıklarda, Gümrük ve Ticaret Bakanlığı tarafından her yıl ilan edilen parasal sınırlara kadar Alıcı'nın veya Satıcı'nın yerleşim yerindeki Tüketici Hakem Heyetleri veya Tüketici Mahkemeleri yetkilidir."
+    },
 },
 error: {
     title: "Beklenmedik bir sorun oluştu",
@@ -362,6 +359,14 @@ error: {
   
   loading: {
     text: "YÜKLENİYOR...",
+  },
+  
+  cookie: {
+    title: "ÇEREZ POLİTİKASI",
+    description: "Sizlere daha iyi bir alışveriş deneyimi sunabilmek, site trafiğimizi analiz etmek ve içerikleri kişiselleştirmek için çerezleri kullanıyoruz.",
+    policyLink: "Gizlilik Politikası",
+    accept: "KABUL ET",
+    decline: "REDDET"
   },
 
 };

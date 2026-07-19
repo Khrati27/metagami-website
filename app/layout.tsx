@@ -5,12 +5,14 @@ import "./globals.css";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import Newsletter from "@/components/Newsletter";
+import CookieConsent from '@/components/CookieConsent';
 
 import Cart from "@/components/Cart";
 
 import { LanguageProvider } from "@/context/LanguageContext";
 import { CurrencyProvider } from "@/context/CurrencyContext";
 import { CartProvider } from "@/context/CartContext";
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -61,8 +63,10 @@ export default function RootLayout({
             </CartProvider>
 
           </CurrencyProvider>
-
+<CookieConsent/>
         </LanguageProvider>
+        
+        
 
       </body>
     </html>
