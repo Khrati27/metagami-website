@@ -25,9 +25,43 @@ const montserrat = Montserrat({
   weight: ["400", "500", "700", "900"],
 });
 
+
+
 export const metadata: Metadata = {
-  title: "Metagami Studio | Architectural Metal Sculptures",
-  description: "Lüks mekanlar için geometrik metal heykeller.",
+ 
+  metadataBase: new URL('https://www.metagamistudio.com'), 
+  
+  title: {
+    
+    template: '%s | Metagami Studio',
+    default: 'Metagami Studio | Mimari Metal Heykeller', 
+  },
+  
+  description: 'Türkiye\'de hassas mühendislik ve el işçiliğiyle üretilen, modern ve lüks mekanlara karakter katan mimari metal heykeller.',
+  
+  
+  openGraph: {
+    title: 'Metagami Studio | Özel Mekanlar İçin Tasarlandı',
+    description: 'Zamansız formlar ve premium el işçiliğiyle üretilen metal heykelleri keşfedin.',
+    url: '/',
+    siteName: 'Metagami Studio',
+    images: [
+      {
+        url: '/og-image.jpg', 
+        width: 1200,
+        height: 630,
+        alt: 'Metagami Studio Signature Collection',
+      },
+    ],
+    locale: 'tr_TR',
+    type: 'website',
+  },
+  
+  
+  robots: {
+    index: true,
+    follow: true,
+  }
 };
 
 export default function RootLayout({
